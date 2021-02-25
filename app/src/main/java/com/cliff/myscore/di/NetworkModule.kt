@@ -1,12 +1,14 @@
 package com.cliff.myscore.di
 
-import com.cliff.myscore.data.api.AuthApi
-import com.cliff.myscore.data.api.FootballApi
+import com.cliff.myscore.data.remote.api.AuthApi
+import com.cliff.myscore.data.remote.api.FootballApi
 import com.cliff.myscore.utils.Constants
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ViewModelComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -23,16 +25,17 @@ annotation class BaseUrl
 annotation class AuthUrl
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ViewModelComponent::class)
 class NetworkModule {
 
     @Provides
-    fun authApi(@AuthUrl retrofit: Retrofit): AuthApi {
+    fun AuthApi(@AuthUrl retrofit: Retrofit): AuthApi {
         return retrofit.create(AuthApi::class.java)
     }
 
+
     @Provides
-    fun footballApi(@BaseUrl retrofit: Retrofit): FootballApi {
+    fun FootballApi(@BaseUrl retrofit: Retrofit): FootballApi {
         return retrofit.create(FootballApi::class.java)
     }
 

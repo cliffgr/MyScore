@@ -6,5 +6,5 @@ import retrofit2.http.POST
 interface AuthApi {
 
     @POST("token")
-    suspend fun fetchAllPlayLists(): TokenRaw
+    suspend fun fetchToken(): TokenRaw
 }
