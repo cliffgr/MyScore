@@ -2,14 +2,13 @@ package com.cliff.myscore.data.remote
 
 import com.cliff.myscore.data.remote.api.AuthApi
 import com.cliff.myscore.data.remote.api.FootballApi
-import com.cliff.myscore.di.BaseUrl
 import com.cliff.myscore.model.TokenRaw
 import com.cliff.myscore.utils.BaseUnitTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import junit.framework.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
