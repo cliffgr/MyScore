@@ -15,8 +15,10 @@ class FootballRemoteDataSource @Inject constructor(
 
     suspend fun fetchToken(): Flow<Result<TokenRaw>> {
         return flow {
-            emit(Result.success(authApi.fetchToken()))
-        }.catch { exception -> emit(Result.failure(exception)) }
+            emit(Result.success(authApi.fetchToken("client_credentials")))
+        }.catch {
+                exception -> emit(Result.failure(exception))
+        }
     }
 
 }
