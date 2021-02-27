@@ -20,7 +20,6 @@ class AuthRemoteDataSourceShould : BaseUnitTest() {
     private val footballApi: FootballApi = mock()
     private val successTokenRaw = mock<TokenRaw>()
     private val expectedSuccess = Result.success(successTokenRaw)
-
     private val exception= RuntimeException("Error")
     private val expectedFailure = Result.failure<TokenRaw>(exception)
 
@@ -28,7 +27,7 @@ class AuthRemoteDataSourceShould : BaseUnitTest() {
     fun fetchApiTokenFromAuthApi() = runBlockingTest {
         val footballRemoteDataSource = initDataSource()
         footballRemoteDataSource.fetchToken().first()
-        verify(authApi, times(1)).fetchToken()
+        verify(authApi, times(1)).fetchToken("client_credentials")
     }
 
     @Test
@@ -45,7 +44,7 @@ class AuthRemoteDataSourceShould : BaseUnitTest() {
 
     private suspend fun success(): FootballRemoteDataSource {
         runBlockingTest {
-            whenever(authApi.fetchToken()).thenReturn(successTokenRaw)
+            whenever(authApi.fetchToken("client_credentials")).thenReturn(successTokenRaw)
         }
         return initDataSource()
 
@@ -53,7 +52,7 @@ class AuthRemoteDataSourceShould : BaseUnitTest() {
 
     private suspend fun failure(): FootballRemoteDataSource {
         runBlockingTest {
-            whenever(authApi.fetchToken()).thenThrow(exception)
+            whenever(authApi.fetchToken("client_credentials")).thenThrow(exception)
         }
         return initDataSource()
     }
