@@ -22,8 +22,9 @@ class HomeViewModel @Inject constructor(val repository: Repository) : ViewModel(
 
     fun requestForToken() {
         viewModelScope.launch {
-            repository.getToken()
+            repository.getCountries().collect {
+                Log.e("TAG","Response $it")
+            }
         }
-
     }
 }

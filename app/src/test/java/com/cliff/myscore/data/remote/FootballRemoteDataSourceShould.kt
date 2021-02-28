@@ -1,8 +1,7 @@
 package com.cliff.myscore.data.remote
 
-import com.cliff.myscore.data.remote.api.AuthApi
 import com.cliff.myscore.data.remote.api.FootballApi
-import com.cliff.myscore.model.TokenRaw
+import com.cliff.myscore.model.CountriesRaw
 import com.cliff.myscore.utils.BaseUnitTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
@@ -14,37 +13,36 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 import java.lang.RuntimeException
 
-class AuthRemoteDataSourceShould : BaseUnitTest() {
+class FootballRemoteDataSourceShould : BaseUnitTest() {
 
-    private val authApi: AuthApi = mock()
     private val footballApi: FootballApi = mock()
-    private val successTokenRaw = mock<TokenRaw>()
+    private val successTokenRaw = mock<CountriesRaw>()
     private val expectedSuccess = Result.success(successTokenRaw)
     private val exception= RuntimeException("Error")
-    private val expectedFailure = Result.failure<TokenRaw>(exception)
+    private val expectedFailure = Result.failure<CountriesRaw>(exception)
 
     @Test
     fun fetchApiTokenFromAuthApi() = runBlockingTest {
         val footballRemoteDataSource = initDataSource()
-        footballRemoteDataSource.fetchToken().first()
-        verify(authApi, times(1)).fetchToken("client_credentials")
+        footballRemoteDataSource.fetchCountries().first()
+        verify(footballApi, times(1)).fetchListCountries()
     }
 
     @Test
     fun successTokenFromApiResponse() = runBlockingTest {
         val footballRemoteDataSource = success()
-        assertEquals(expectedSuccess, footballRemoteDataSource.fetchToken().first())
+        assertEquals(expectedSuccess, footballRemoteDataSource.fetchCountries().first())
     }
 
     @Test
     fun failureTokenFromApiResponse() = runBlockingTest {
         val footballRemoteDataSource = failure()
-        assertEquals(expectedFailure, footballRemoteDataSource.fetchToken().first())
+        assertEquals(expectedFailure, footballRemoteDataSource.fetchCountries().first())
     }
 
     private suspend fun success(): FootballRemoteDataSource {
         runBlockingTest {
-            whenever(authApi.fetchToken("client_credentials")).thenReturn(successTokenRaw)
+            whenever(footballApi.fetchListCountries()).thenReturn(successTokenRaw)
         }
         return initDataSource()
 
@@ -52,12 +50,12 @@ class AuthRemoteDataSourceShould : BaseUnitTest() {
 
     private suspend fun failure(): FootballRemoteDataSource {
         runBlockingTest {
-            whenever(authApi.fetchToken("client_credentials")).thenThrow(exception)
+            whenever(footballApi.fetchListCountries()).thenThrow(exception)
         }
         return initDataSource()
     }
 
     private fun initDataSource(): FootballRemoteDataSource {
-        return FootballRemoteDataSource(footballApi, authApi)
+        return FootballRemoteDataSource(footballApi)
     }
 }

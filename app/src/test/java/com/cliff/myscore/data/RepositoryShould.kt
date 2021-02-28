@@ -2,7 +2,7 @@ package com.cliff.myscore.data
 
 import com.cliff.myscore.data.local.FootballLocalDataSource
 import com.cliff.myscore.data.remote.FootballRemoteDataSource
-import com.cliff.myscore.model.TokenRaw
+import com.cliff.myscore.model.CountriesRaw
 import com.nhaarman.mockitokotlin2.*
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.first
@@ -14,45 +14,30 @@ class RepositoryShould {
 
     private val remoteDataSource = mock<FootballRemoteDataSource>()
     private val localDataSource = mock<FootballLocalDataSource>()
-
-    private val tokenRaw: TokenRaw = TokenRaw(
-        "TokenString",
-        3600,
-        "Bearer"
-    )
-
-    private val expectedToken: String = "Bearer TokenString"
+    private val countriesRaw = mock<CountriesRaw>()
 
     @Test
     fun fetchTokenFromRemoteDataSource() = runBlockingTest {
         val repository = fetchingSuccessToken()
-        repository.getToken()
-        verify(remoteDataSource, times(1)).fetchToken()
+        repository.getCountries()
+        verify(remoteDataSource, times(1)).fetchCountries()
     }
 
     @Test
     fun fetchCorrectTokenFromRemoteDataSource() = runBlockingTest {
         val repository = fetchingSuccessToken()
         assertEquals(
-            tokenRaw.access_token,
-            repository.getToken().first().getOrNull()!!.access_token
+            countriesRaw,
+            repository.getCountries().first().getOrNull()
         )
     }
-
-    @Test
-     fun fetchTokenAndSaveInRepo() = runBlockingTest {
-         val repository = fetchingSuccessToken()
-         repository.getToken()
-         assertEquals(expectedToken, repository.token)
-
-     }
 
 
     private fun fetchingSuccessToken(): Repository {
         runBlockingTest {
-            whenever(remoteDataSource.fetchToken()).thenReturn(
+            whenever(remoteDataSource.fetchCountries()).thenReturn(
                 flow {
-                    emit(Result.success(tokenRaw))
+                    emit(Result.success(countriesRaw))
                 }
             )
         }
