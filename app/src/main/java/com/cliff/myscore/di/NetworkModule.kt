@@ -1,5 +1,6 @@
 package com.cliff.myscore.di
 
+import com.cliff.myscore.BuildConfig
 import com.cliff.myscore.data.remote.api.AuthApi
 import com.cliff.myscore.data.remote.api.FootballApi
 import com.cliff.myscore.utils.Constants
@@ -12,6 +13,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Qualifier
@@ -50,11 +52,22 @@ class NetworkModule {
         }
     }
 
+    @Provides
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
+        }
+    }
+
 
     @Provides
-    fun provideAuthInterceptorOkHttpClient(authInterceptor: Interceptor): OkHttpClient {
+    fun provideAuthInterceptorOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient().newBuilder()
-            .addInterceptor(authInterceptor)
+            .addInterceptor(httpLoggingInterceptor)
             .build()
     }
 
