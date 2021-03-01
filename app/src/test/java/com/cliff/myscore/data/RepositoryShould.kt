@@ -17,18 +17,24 @@ class RepositoryShould {
     private val countriesRaw = mock<CountriesRaw>()
 
     @Test
-    fun fetchTokenFromRemoteDataSource() = runBlockingTest {
+    fun fetchCountriesFromRemoteDataSource() = runBlockingTest {
         val repository = fetchingSuccessToken()
         repository.getCountries()
         verify(remoteDataSource, times(1)).fetchCountries()
     }
 
     @Test
+    fun fetchLiveScoreFromRemoteDataSource() = runBlockingTest {
+        val repository = fetchingSuccessToken()
+        repository.getLiveScores()
+        verify(remoteDataSource, times(1)).fetchLiveScores()
+    }
+
+    @Test
     fun fetchCorrectTokenFromRemoteDataSource() = runBlockingTest {
         val repository = fetchingSuccessToken()
         assertEquals(
-            countriesRaw,
-            repository.getCountries().first().getOrNull()
+            countriesRaw.response, repository.getCountries().first().getOrNull()
         )
     }
 

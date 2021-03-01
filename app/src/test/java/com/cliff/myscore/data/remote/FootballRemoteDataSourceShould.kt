@@ -22,20 +22,20 @@ class FootballRemoteDataSourceShould : BaseUnitTest() {
     private val expectedFailure = Result.failure<CountriesRaw>(exception)
 
     @Test
-    fun fetchApiTokenFromAuthApi() = runBlockingTest {
+    fun fetchApiCountriesFromAuthApi() = runBlockingTest {
         val footballRemoteDataSource = initDataSource()
         footballRemoteDataSource.fetchCountries().first()
         verify(footballApi, times(1)).fetchListCountries()
     }
 
     @Test
-    fun successTokenFromApiResponse() = runBlockingTest {
+    fun successCountriesFromApiResponse() = runBlockingTest {
         val footballRemoteDataSource = success()
         assertEquals(expectedSuccess, footballRemoteDataSource.fetchCountries().first())
     }
 
     @Test
-    fun failureTokenFromApiResponse() = runBlockingTest {
+    fun failureCountriesFromApiResponse() = runBlockingTest {
         val footballRemoteDataSource = failure()
         assertEquals(expectedFailure, footballRemoteDataSource.fetchCountries().first())
     }
