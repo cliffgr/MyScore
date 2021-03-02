@@ -1,29 +1,24 @@
 package com.cliff.myscore.ui.home
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cliff.myscore.data.Repository
+import com.cliff.myscore.model.FixtureLiveScore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(val repository: Repository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment with Hilt"
-    }
-    val text: LiveData<String> = _text
+    val liveScore: MutableLiveData<List<FixtureLiveScore>> = MutableLiveData()
 
-
-    fun requestForToken() {
+    fun getLiveScore() {
         viewModelScope.launch {
-            repository.getCountries().collect {
-                Log.e("TAG","Response $it")
+            repository.getLiveScores().collect {
+                liveScore.postValue(it.getOrNull())
             }
         }
     }
