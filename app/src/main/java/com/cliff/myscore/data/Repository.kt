@@ -1,5 +1,6 @@
 package com.cliff.myscore.data
 
+import com.cliff.myscore.bl.getResponse
 import com.cliff.myscore.data.local.FootballLocalDataSource
 import com.cliff.myscore.data.remote.FootballRemoteDataSource
 import com.cliff.myscore.model.CountriesRaw
@@ -22,16 +23,16 @@ class Repository @Inject constructor(
     suspend fun getCountries(): Flow<Result<List<Country>>> {
         return remoteDataSource.fetchCountries().map {
             if (it.isSuccess)
-                Result.success(it.getOrNull()!!.response)
+                Result.success(it.getOrNull()!!.getResponse())
             else
                 Result.failure(it.exceptionOrNull()!!)
         }
     }
 
-    suspend fun getLiveScores(): Flow<Result<List<FixtureLiveScore>>>{
-        return  remoteDataSource.fetchLiveScores().map {
+    suspend fun getLiveScores(): Flow<Result<List<FixtureLiveScore>>> {
+        return remoteDataSource.fetchLiveScores().map {
             if (it.isSuccess)
-                Result.success(it.getOrNull()!!.response)
+                Result.success(it.getOrNull()!!.getResponse())
             else
                 Result.failure(it.exceptionOrNull()!!)
         }
