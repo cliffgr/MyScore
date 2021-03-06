@@ -1,10 +1,12 @@
 package com.cliff.myscore.ui.home
 
+import android.graphics.drawable.PictureDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cliff.myscore.databinding.ItemFixtureBinding
 import com.cliff.myscore.model.FixtureLiveScore
 
@@ -38,6 +40,21 @@ class LiveScoreAdapter(private val listener: (String) -> Unit) :
             with(itemBinding) {
                 textViewHome.text = fixtureLiveScore.teams.home.name
                 textViewAway.text = fixtureLiveScore.teams.away.name
+                textViewScore.text =
+                    "${fixtureLiveScore.goals.home} : ${fixtureLiveScore.goals.away}"
+                textViewElapse.text = "${fixtureLiveScore.fixture.status.elapsed}'"
+                textViewLeague.text = fixtureLiveScore.league.name
+                textViewRound.text = fixtureLiveScore.league.round
+
+                Glide.with(itemView)
+                    .load(fixtureLiveScore.teams.home.logo)
+                    .centerCrop()
+                    .into(imageViewHome)
+
+                Glide.with(itemView)
+                    .load(fixtureLiveScore.teams.away.logo)
+                    .centerCrop()
+                    .into(imageViewAway)
             }
         }
     }
@@ -47,7 +64,7 @@ class LiveScoreAdapter(private val listener: (String) -> Unit) :
 class LiveScoreDiffCallback : DiffUtil.ItemCallback<FixtureLiveScore>() {
 
     override fun areItemsTheSame(oldItem: FixtureLiveScore, newItem: FixtureLiveScore): Boolean {
-        return oldItem.fixture.id== newItem.fixture.id
+        return oldItem.fixture.id == newItem.fixture.id
     }
 
     override fun areContentsTheSame(oldItem: FixtureLiveScore, newItem: FixtureLiveScore): Boolean {
