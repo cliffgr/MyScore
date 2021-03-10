@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setup_navigation"
+    app:startDestination="@id/countriesFragment">
+    <fragment
+        android:id="@+id/countriesFragment"
+        android:name="com.cliff.myscore.ui.setup.countries.CountriesFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_countriesFragment_to_leagueFragment"
+            app:destination="@id/leagueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/leagueFragment"
+        android:name="com.cliff.myscore.ui.setup.leagues.LeagueFragment"
+        android:label="fragment_league"
+        tools:layout="@layout/fragment_league" >
+        <action
+            android:id="@+id/action_leagueFragment_to_countriesFragment"
+            app:destination="@id/countriesFragment" />
+        <argument
+            android:name="country_code"
+            app:argType="string" />
+    </fragment>
+</navigation>

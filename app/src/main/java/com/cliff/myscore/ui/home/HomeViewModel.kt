@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel()  {
+class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
 
     val liveScore: MutableLiveData<List<FixtureLiveScore>> = MutableLiveData()
@@ -33,11 +33,11 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                 repository.getLiveScores().collect {
                     liveScore.postValue(it.getOrNull())
 
-                 /*   val map = it.getOrNull()!!.groupBy { result ->
-                        result.league.name
-                    }.toSortedMap()
+                    /*   val map = it.getOrNull()!!.groupBy { result ->
+                           result.league.name
+                       }.toSortedMap()
 
-                    Log.e("Home","Mapping")*/
+                       Log.e("Home","Mapping")*/
 
                 }
             }
@@ -46,6 +46,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     override fun onCleared() {
         super.onCleared()
-        job.cancel()
+        if (job != null)
+            job.cancel()
     }
 }

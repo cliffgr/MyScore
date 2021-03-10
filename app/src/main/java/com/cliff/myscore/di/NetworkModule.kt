@@ -31,7 +31,8 @@ class NetworkModule {
         return Interceptor { chain: Interceptor.Chain ->
             val original: Request = chain.request()
             val requestBuilder: Request.Builder = original.newBuilder()
-                .addHeader("Accept", "Application/JSON")
+                .addHeader("x-rapidapi-host","v3.football.api-sports.io")
+                .addHeader("x-rapidapi-key","1778e36d7f134097098abbf4a584ec15")
             val request: Request = requestBuilder.build()
             chain.proceed(request)
         }
@@ -69,6 +70,5 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
 
 }

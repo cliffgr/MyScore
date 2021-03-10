@@ -1,12 +1,10 @@
-package com.cliff.myscore.ui.dashboard
+package com.cliff.myscore.ui.setup.countries
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cliff.myscore.data.Repository
 import com.cliff.myscore.model.Country
-import com.cliff.myscore.model.FixtureLiveScore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

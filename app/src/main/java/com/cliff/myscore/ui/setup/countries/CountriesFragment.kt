@@ -1,29 +1,23 @@
-package com.cliff.myscore.ui.dashboard
+package com.cliff.myscore.ui.setup.countries
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cliff.myscore.R
 import com.cliff.myscore.databinding.FragmentDashboardBinding
-import com.cliff.myscore.databinding.FragmentHomeBinding
-import com.cliff.myscore.ui.home.HomeViewModel
-import com.cliff.myscore.ui.home.LiveScoreAdapter
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.zip.CheckedOutputStream
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class CountriesFragment : Fragment() {
 
-     val dashboardViewModel: DashboardViewModel by viewModels()
+    private val dashboardViewModel: DashboardViewModel by viewModels()
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
@@ -33,7 +27,7 @@ class CountriesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding= FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,9 +37,12 @@ class CountriesFragment : Fragment() {
         dashboardViewModel.getSupportedCountries();
 
         with(binding.recyclerView) {
-            layoutManager= LinearLayoutManager(context)
-            adapter= CountriesAdapter(){
+            layoutManager = LinearLayoutManager(context)
+            adapter = CountriesAdapter() {
+                val directions: NavDirections =
+                    CountriesFragmentDirections.actionCountriesFragmentToLeagueFragment(it)
 
+                findNavController().navigate(directions)
             }
         }
 

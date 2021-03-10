@@ -1,7 +1,7 @@
-package com.cliff.myscore.ui.dashboard
+package com.cliff.myscore.ui.setup.countries
 
 import android.net.Uri
-import android.util.Log
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -14,6 +14,7 @@ import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 class CountriesAdapter(private val listener: (String) -> Unit) :
     ListAdapter<Country, CountriesAdapter.ViewHolder>(CountryDiffCallback()) {
 
+    // var checkBoxesPositions: SparseBooleanArray = SparseBooleanArray()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding =
@@ -25,37 +26,31 @@ class CountriesAdapter(private val listener: (String) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-        holder.itemView.setOnClickListener { listener("x") }
+        holder.itemView.setOnClickListener { listener(getItem(position).code) }
     }
 
 
     inner class ViewHolder(private val itemBinding: ItemCountiesBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         init {
-            itemBinding.root.setOnClickListener {
-                // listener(getItem(layoutPosition), binding.mcvPoster, binding.tvTitle)
-            }
+           /* itemBinding.checkBox.setOnCheckedChangeListener { _, isChecked ->
+                // checkBoxesPositions.put(layoutPosition, isChecked)
+            }*/
         }
 
         fun bind(country: Country) {
             with(itemBinding) {
                 countryName.text = country.name
-              /*  Glide.with(countryImage)
-                    .`as`(PictureDrawable::class.java)
-                    .load()
-                    .centerCrop()
-                    .into()*/
-
                 country.flag?.let {
                     GlideToVectorYou
                         .init()
                         .with(countryImage.context)
                         .load(Uri.parse(country.flag), countryImage);
                 }
+                //  checkBox.isChecked = checkBoxesPositions[layoutPosition, false]
             }
         }
     }
-
 }
 
 class CountryDiffCallback : DiffUtil.ItemCallback<Country>() {

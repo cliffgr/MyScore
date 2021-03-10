@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.setup.countries.CountriesFragment">
+    tools:context=".ui.setup.leagues.LeagueFragment">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -14,5 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_counties"/>
+        tools:listitem="@layout/item_leagues" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

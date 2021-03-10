@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.cliff.myscore.ui.dashboard.CountriesFragment"
+        android:name="com.cliff.myscore.ui.setup.countries.CountriesFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 

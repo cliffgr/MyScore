@@ -1,9 +1,6 @@
 package com.cliff.myscore.bl
 
-import com.cliff.myscore.model.CountriesRaw
-import com.cliff.myscore.model.Country
-import com.cliff.myscore.model.FixtureLiveScore
-import com.cliff.myscore.model.FixturesRaw
+import com.cliff.myscore.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -16,6 +13,10 @@ fun CountriesRaw.getResponse(): List<Country> {
 }
 
 fun FixturesRaw.getResponse(): List<FixtureLiveScore> {
+    return response
+}
+
+fun LeaguesRaw.getResponse(): List<Leagues> {
     return response
 }
 

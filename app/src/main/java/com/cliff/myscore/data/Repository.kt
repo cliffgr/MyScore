@@ -3,13 +3,11 @@ package com.cliff.myscore.data
 import com.cliff.myscore.bl.getResponse
 import com.cliff.myscore.data.local.FootballLocalDataSource
 import com.cliff.myscore.data.remote.FootballRemoteDataSource
-import com.cliff.myscore.model.CountriesRaw
-import com.cliff.myscore.model.Country
-import com.cliff.myscore.model.FixtureLiveScore
-import com.cliff.myscore.model.FixturesRaw
+import com.cliff.myscore.model.*
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -36,7 +34,15 @@ class Repository @Inject constructor(
             else
                 Result.failure(it.exceptionOrNull()!!)
         }
+    }
 
+    suspend fun getLeagues(countryCode: String): Flow<Result<List<Leagues>>> {
+        return remoteDataSource.fetchLeagues(countryCode, true).map {
+            if (it.isSuccess)
+                Result.success(it.getOrNull()!!.getResponse())
+            else
+                Result.failure(it.exceptionOrNull()!!)
+        }
     }
 
 }
