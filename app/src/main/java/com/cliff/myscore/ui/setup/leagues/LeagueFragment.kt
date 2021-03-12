@@ -38,8 +38,8 @@ class LeagueFragment : Fragment() {
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = LeaguesAdapter() {
-
+            adapter = LeaguesAdapter() { id, flag ->
+                leagueViewModel.addFav(id, flag)
             }
         }
 

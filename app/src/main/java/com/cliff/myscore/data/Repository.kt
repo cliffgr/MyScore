@@ -45,4 +45,8 @@ class Repository @Inject constructor(
         }
     }
 
+    suspend fun addFavouriteLeague(id: Int, flag: Boolean) {
+        localDataSource.addLeague(id, flag)
+    }
+
 }

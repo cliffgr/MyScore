@@ -24,12 +24,9 @@ class DatabaseModule {
             .build()
     }
 
-
     @Provides
     @Singleton
     fun provideFavouriteLeaguesDao(appDatabase: AppDatabase): FavouriteLeaguesDao {
         return appDatabase.favouriteLeaguesDao()
     }
-
-
 }

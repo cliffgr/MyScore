@@ -4,4 +4,4 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class FavLeague (@PrimaryKey val countryId: Int, flag : Boolean)
+data class FavLeague (@PrimaryKey val countryId: Int,val flag : Boolean)

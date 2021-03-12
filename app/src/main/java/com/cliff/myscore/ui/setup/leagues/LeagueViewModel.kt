@@ -22,6 +22,11 @@ class LeagueViewModel @Inject constructor(val repository: Repository) : ViewMode
                 leagues.postValue(it.getOrNull())
             }
         }
+    }
 
+    fun addFav(id: Int, flag: Boolean) {
+        viewModelScope.launch {
+            repository.addFavouriteLeague(id, flag)
+        }
     }
 }
