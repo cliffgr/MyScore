@@ -20,7 +20,9 @@
         tools:layout="@layout/fragment_league" >
         <action
             android:id="@+id/action_leagueFragment_to_countriesFragment"
-            app:destination="@id/countriesFragment" />
+            app:destination="@id/countriesFragment"
+            app:popUpTo="@id/countriesFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="country_code"
             app:argType="string" />
