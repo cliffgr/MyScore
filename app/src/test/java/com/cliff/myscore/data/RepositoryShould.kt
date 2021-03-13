@@ -18,8 +18,9 @@ class RepositoryShould {
     private val localDataSource = mock<FootballLocalDataSource>()
     private val countriesRaw = mock<CountriesRaw>()
     private val fixturesRaw = mock<FixturesRaw>()
+    private val runtimeException= RuntimeException("error")
 
-    private val expectedFixtureFailure = Result.failure<FixturesRaw>(RuntimeException("error"))
+    private val expectedFixtureFailure = Result.failure<FixturesRaw>(runtimeException)
 
     @Test
     fun fetchCountriesFromRemoteDataSource() = runBlockingTest {
@@ -55,10 +56,9 @@ class RepositoryShould {
     fun fetchFailureFixturesFromRemoteDataSource() = runBlockingTest {
         val repository = fetchingFailure()
         assertEquals(
-            expectedFixtureFailure, repository.getLiveScores().first().getOrNull()
+            expectedFixtureFailure.exceptionOrNull(), repository.getLiveScores().first().exceptionOrNull()
         )
     }
-
 
     private fun fetchingSuccess(): Repository {
         runBlockingTest {
@@ -80,7 +80,7 @@ class RepositoryShould {
         runBlockingTest {
             whenever(remoteDataSource.fetchLiveScores()).thenReturn(
                 flow {
-                    emit(expectedFixtureFailure)
+                    emit(Result.failure<FixturesRaw>(runtimeException))
                 }
             )
         }
