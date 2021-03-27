@@ -44,6 +44,8 @@ class LeaguesAdapter(private val listener: (Int, Boolean) -> Unit) :
                         .fitCenter()
                         .into(leagueImage)
 
+                    checkBox.isChecked=leagues.league.isSelected
+
                     checkBox.setOnCheckedChangeListener { _, isChecked ->
                         // checkBoxesPositions.put()
                         listener(leagues.league.id, isChecked)

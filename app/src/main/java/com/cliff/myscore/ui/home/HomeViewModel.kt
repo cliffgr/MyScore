@@ -25,19 +25,10 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     private lateinit var job: Deferred<Unit>;
 
     fun getLiveScore() {
-        /*viewModelScope.launch {
-
-        }*/
-        job = viewModelScope.launchPeriodicAsync(TimeUnit.MINUTES.toMillis(1)) {
+        job = viewModelScope.launchPeriodicAsync(TimeUnit.MINUTES.toMillis(5)) {
             runBlocking {
                 repository.getLiveScores().collect {
                     liveScore.postValue(it.getOrNull())
-
-                    /*   val map = it.getOrNull()!!.groupBy { result ->
-                           result.league.name
-                       }.toSortedMap()
-
-                       Log.e("Home","Mapping")*/
 
                 }
             }

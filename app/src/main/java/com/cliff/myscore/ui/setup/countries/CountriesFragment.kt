@@ -1,7 +1,6 @@
 package com.cliff.myscore.ui.setup.countries
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cliff.myscore.R
+import com.cliff.myscore.bl.setVisible
 import com.cliff.myscore.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,8 +47,16 @@ class CountriesFragment : Fragment() {
             }
         }
 
+        binding.button.setOnClickListener {
+            findNavController().navigate(R.id.main_menu_activity)
+        }
+
         dashboardViewModel.countries.observe(viewLifecycleOwner, {
             (binding.recyclerView.adapter as CountriesAdapter).submitList(it)
+        })
+
+        dashboardViewModel.loader.observe(viewLifecycleOwner, { flag ->
+           binding.progressBar.setVisible(flag)
         })
     }
 }

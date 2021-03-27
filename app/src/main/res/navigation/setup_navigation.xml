@@ -8,7 +8,7 @@
         android:id="@+id/countriesFragment"
         android:name="com.cliff.myscore.ui.setup.countries.CountriesFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_countriesFragment_to_leagueFragment"
             app:destination="@id/leagueFragment" />
@@ -17,7 +17,7 @@
         android:id="@+id/leagueFragment"
         android:name="com.cliff.myscore.ui.setup.leagues.LeagueFragment"
         android:label="fragment_league"
-        tools:layout="@layout/fragment_league" >
+        tools:layout="@layout/fragment_league">
         <action
             android:id="@+id/action_leagueFragment_to_countriesFragment"
             app:destination="@id/countriesFragment"
@@ -27,4 +27,12 @@
             android:name="country_code"
             app:argType="string" />
     </fragment>
+
+    <activity
+        android:id="@+id/main_menu_activity"
+        android:name="com.cliff.myscore.MainActivity"
+        android:label="Main Menu"
+        tools:layout="@layout/activity_main" />
+
+
 </navigation>
