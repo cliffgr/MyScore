@@ -35,6 +35,15 @@ class Repository @Inject constructor(
         }
     }
 
+    suspend fun getFixture(id: String): Flow<Result<List<FixtureLiveScore>>> {
+        return remoteDataSource.fetchFixtureById(id).map {
+            if (it.isSuccess)
+                Result.success(it.getOrNull()!!.getResponse())
+            else
+                Result.failure(it.exceptionOrNull()!!)
+        }
+    }
+
     suspend fun getLeagues(countryCode: String): Flow<Result<List<Leagues>>> {
         return remoteDataSource.fetchLeagues(countryCode, true).map {
             if (it.isSuccess)

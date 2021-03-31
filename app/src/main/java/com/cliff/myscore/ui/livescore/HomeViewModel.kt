@@ -1,7 +1,5 @@
-package com.cliff.myscore.ui.home
+package com.cliff.myscore.ui.livescore
 
-import android.util.Log
-import android.widget.BaseExpandableListAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,9 +8,7 @@ import com.cliff.myscore.data.Repository
 import com.cliff.myscore.model.FixtureLiveScore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

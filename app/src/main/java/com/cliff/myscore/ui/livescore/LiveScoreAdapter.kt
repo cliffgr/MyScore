@@ -1,6 +1,5 @@
-package com.cliff.myscore.ui.home
+package com.cliff.myscore.ui.livescore
 
-import android.graphics.drawable.PictureDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

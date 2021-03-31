@@ -2,9 +2,7 @@ package com.cliff.myscore.model
 
 data class FixturesRaw(
     val errors: List<Any>,
-    val `get`: String,
     val paging: Paging,
-    val parameters: Parameters,
     val response: List<FixtureLiveScore>,
     val results: Int
 ) {
@@ -13,11 +11,6 @@ data class FixturesRaw(
         val total: Int
     )
 
-    data class Parameters(
-        val live: String
-    )
-
-
 }
 
 data class FixtureLiveScore(
@@ -25,7 +18,10 @@ data class FixtureLiveScore(
     val fixture: Fixture,
     val goals: Goals,
     val league: League,
+    val lineups: List<Lineup>,
+    val players: List<Player>,
     val score: Score,
+    val statistics: List<Statistic>,
     val teams: Teams
 ) {
     data class Event(
@@ -63,7 +59,7 @@ data class FixtureLiveScore(
         val date: String,
         val id: Int,
         val periods: Periods,
-        val referee: Any,
+        val referee: String,
         val status: Status,
         val timestamp: Int,
         val timezone: String,
@@ -71,7 +67,7 @@ data class FixtureLiveScore(
     ) {
         data class Periods(
             val first: Int,
-            val second: Any
+            val second: Int
         )
 
         data class Status(
@@ -102,6 +98,146 @@ data class FixtureLiveScore(
         val season: Int
     )
 
+    data class Lineup(
+        val coach: Coach,
+        val formation: String,
+        val startXI: List<StartXI>,
+        val substitutes: List<Substitute>,
+        val team: Team
+    ) {
+        data class Coach(
+            val id: Int,
+            val name: String
+        )
+
+        data class StartXI(
+            val player: Player
+        ) {
+            data class Player(
+                val id: Int,
+                val name: String,
+                val number: Int,
+                val pos: String
+            )
+        }
+
+        data class Substitute(
+            val player: Player
+        ) {
+            data class Player(
+                val id: Int,
+                val name: String,
+                val number: Int,
+                val pos: String
+            )
+        }
+
+        data class Team(
+            val id: Int,
+            val logo: String,
+            val name: String
+        )
+    }
+
+    data class Player(
+        val players: List<PlayerList>,
+        val team: Team
+    ) {
+        data class PlayerList(
+            val player: Player,
+            val statistics: List<Statistic>
+        ) {
+            data class Player(
+                val id: Int,
+                val name: String,
+                val photo: String
+            )
+
+            data class Statistic(
+                val cards: Cards,
+                val dribbles: Dribbles,
+                val duels: Duels,
+                val fouls: Fouls,
+                val games: Games,
+                val goals: Goals,
+                val offsides: Any,
+                val passes: Passes,
+                val penalty: Penalty,
+                val shots: Shots,
+                val tackles: Tackles
+            ) {
+                data class Cards(
+                    val red: Int,
+                    val yellow: Int
+                )
+
+                data class Dribbles(
+                    val attempts: Any,
+                    val past: Any,
+                    val success: Any
+                )
+
+                data class Duels(
+                    val total: Any,
+                    val won: Any
+                )
+
+                data class Fouls(
+                    val committed: Any,
+                    val drawn: Any
+                )
+
+                data class Games(
+                    val captain: Boolean,
+                    val minutes: Int,
+                    val number: Int,
+                    val position: String,
+                    val rating: String,
+                    val substitute: Boolean
+                )
+
+                data class Goals(
+                    val assists: Any,
+                    val conceded: Int,
+                    val saves: Int,
+                    val total: Any
+                )
+
+                data class Passes(
+                    val accuracy: String,
+                    val key: Any,
+                    val total: Int
+                )
+
+                data class Penalty(
+                    val commited: Any,
+                    val missed: Int,
+                    val saved: Int,
+                    val scored: Int,
+                    val won: Any
+                )
+
+                data class Shots(
+                    val on: Any,
+                    val total: Any
+                )
+
+                data class Tackles(
+                    val blocks: Any,
+                    val interceptions: Any,
+                    val total: Any
+                )
+            }
+        }
+
+        data class Team(
+            val id: Int,
+            val logo: String,
+            val name: String,
+            val update: String
+        )
+    }
+
     data class Score(
         val extratime: Extratime,
         val fulltime: Fulltime,
@@ -114,8 +250,8 @@ data class FixtureLiveScore(
         )
 
         data class Fulltime(
-            val away: Any,
-            val home: Any
+            val away: Int,
+            val home: Int
         )
 
         data class Halftime(
@@ -126,6 +262,22 @@ data class FixtureLiveScore(
         data class Penalty(
             val away: Any,
             val home: Any
+        )
+    }
+
+    data class Statistic(
+        val statistics: List<StatisticsList>,
+        val team: Team
+    ) {
+        data class StatisticsList(
+            val type: String,
+            val value: Any
+        )
+
+        data class Team(
+            val id: Int,
+            val logo: String,
+            val name: String
         )
     }
 
