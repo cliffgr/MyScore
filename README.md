@@ -1,6 +1,16 @@
 # MyScore
 
-This is a demo app based on clear archutecture to improve my skills in Koltin
+This is a football live score (open source) app based on clear archutecture to improve my skills in Koltin
+
+# Features:
+
+* LiveScore
+* Fixture
+* Add League to favourites
+
+# Next Tasks:
+
+Cooming soon
 
 # Technologies used:
 
