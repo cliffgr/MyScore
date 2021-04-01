@@ -11,7 +11,12 @@
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_countriesFragment_to_leagueFragment"
-            app:destination="@id/leagueFragment" />
+            app:destination="@id/leagueFragment"
+            app:popUpTo="@id/countriesFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_countriesFragment_to_mobile_navigation"
+            app:destination="@id/mobile_navigation" />
     </fragment>
     <fragment
         android:id="@+id/leagueFragment"
@@ -22,17 +27,36 @@
             android:id="@+id/action_leagueFragment_to_countriesFragment"
             app:destination="@id/countriesFragment"
             app:popUpTo="@id/countriesFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
         <argument
             android:name="country_code"
             app:argType="string" />
     </fragment>
 
-    <activity
-        android:id="@+id/main_menu_activity"
-        android:name="com.cliff.myscore.MainActivity"
-        android:label="Main Menu"
-        tools:layout="@layout/activity_main" />
+
+    <navigation
+        android:id="@+id/mobile_navigation"
+        android:label="MainMenu"
+        app:startDestination="@+id/navigation_home">
+
+        <fragment
+            android:id="@+id/navigation_home"
+            android:name="com.cliff.myscore.ui.livescore.HomeFragment"
+            android:label="@string/title_home"
+            tools:layout="@layout/fragment_home" />
+
+        <fragment
+            android:id="@+id/navigation_dashboard"
+            android:name="com.cliff.myscore.ui.setup.countries.CountriesFragment"
+            android:label="@string/title_dashboard"
+            tools:layout="@layout/fragment_dashboard" />
+
+        <fragment
+            android:id="@+id/navigation_notifications"
+            android:name="com.cliff.myscore.ui.notifications.NotificationsFragment"
+            android:label="@string/title_notifications"
+            tools:layout="@layout/fragment_notifications" />
+    </navigation>
 
 
 </navigation>

@@ -48,7 +48,9 @@ class CountriesFragment : Fragment() {
         }
 
         binding.button.setOnClickListener {
-            findNavController().navigate(R.id.main_menu_activity)
+            val directions: NavDirections =
+                CountriesFragmentDirections.actionCountriesFragmentToMobileNavigation()
+            findNavController().navigate(directions)
         }
 
         dashboardViewModel.countries.observe(viewLifecycleOwner, {
@@ -56,7 +58,7 @@ class CountriesFragment : Fragment() {
         })
 
         dashboardViewModel.loader.observe(viewLifecycleOwner, { flag ->
-           binding.progressBar.setVisible(flag)
+            binding.progressBar.setVisible(flag)
         })
     }
 }

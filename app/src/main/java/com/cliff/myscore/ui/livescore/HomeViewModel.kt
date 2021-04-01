@@ -33,7 +33,6 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     override fun onCleared() {
         super.onCleared()
-        if (job != null)
-            job.cancel()
+        job?.cancel()
     }
 }
