@@ -38,7 +38,7 @@ class LeaguesAdapter(private val listener: (Int, Boolean) -> Unit) :
         fun bind(leagues: Leagues) {
             with(itemBinding) {
                 leagueName.text = leagues.league.name
-                leagues.league.logo?.let {
+                leagues.league.logo.let {
                     Glide.with(itemView)
                         .load(leagues.league.logo)
                         .fitCenter()
