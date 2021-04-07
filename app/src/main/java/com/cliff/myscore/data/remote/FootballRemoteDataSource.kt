@@ -30,7 +30,7 @@ class FootballRemoteDataSource @Inject constructor(
         }
     }
 
-    suspend fun fetchFixtureById(id: String): Flow<Result<FixturesRaw>> {
+    suspend fun fetchFixtureById(id: Int): Flow<Result<FixturesRaw>> {
         return flow {
             emit(Result.success(footballApi.fetchSelectedFixtures(id)))
         }.catch { exception ->
