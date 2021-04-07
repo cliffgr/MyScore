@@ -1,5 +1,6 @@
 package com.cliff.myscore.ui.livescore
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,14 +18,17 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
 
-    val liveScore: MutableLiveData<List<FixtureLiveScore>> = MutableLiveData()
-    private lateinit var job: Deferred<Unit>;
+    private var _liveScore: MutableLiveData<List<FixtureLiveScore>> = MutableLiveData()
+    val liveScore: LiveData<List<FixtureLiveScore>>
+        get() = _liveScore
+
+    private lateinit var job: Deferred<Unit>
 
     fun getLiveScore() {
         job = viewModelScope.launchPeriodicAsync(TimeUnit.MINUTES.toMillis(5)) {
             runBlocking {
                 repository.getLiveScores().collect {
-                    liveScore.postValue(it.getOrNull())
+                    _liveScore.postValue(it.getOrNull())
 
                 }
             }
