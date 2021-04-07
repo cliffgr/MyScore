@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.cliff.myscore.databinding.ItemFixtureBinding
 import com.cliff.myscore.model.FixtureLiveScore
 
-class LiveScoreAdapter(private val listener: (String) -> Unit) :
+class LiveScoreAdapter(private val listener: (Int) -> Unit) :
     ListAdapter<FixtureLiveScore, LiveScoreAdapter.ViewHolder>(LiveScoreDiffCallback()) {
 
 
@@ -23,7 +23,7 @@ class LiveScoreAdapter(private val listener: (String) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-        holder.itemView.setOnClickListener { listener("x") }
+        holder.itemView.setOnClickListener { listener(item.fixture.id) }
     }
 
 
@@ -42,7 +42,7 @@ class LiveScoreAdapter(private val listener: (String) -> Unit) :
                 textViewScore.text =
                     "${fixtureLiveScore.goals.home} : ${fixtureLiveScore.goals.away}"
                 textViewElapse.text = "${fixtureLiveScore.fixture.status.elapsed}'"
-                textViewLeague.text = fixtureLiveScore.league.name
+                textViewLeague.text = "${fixtureLiveScore.league.country} - ${fixtureLiveScore.league.name}"
                 textViewRound.text = fixtureLiveScore.league.round
 
                 Glide.with(itemView)
