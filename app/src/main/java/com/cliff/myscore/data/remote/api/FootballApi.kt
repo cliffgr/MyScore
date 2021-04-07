@@ -15,7 +15,7 @@ interface FootballApi {
     suspend fun fetchLiveScoreFixtures(): FixturesRaw
 
     @GET("fixtures")
-    suspend fun fetchSelectedFixtures(@Query("id") id: String): FixturesRaw
+    suspend fun fetchSelectedFixtures(@Query("id") id: Int): FixturesRaw
 
     @GET("leagues")
     suspend fun fetchLeagues(
