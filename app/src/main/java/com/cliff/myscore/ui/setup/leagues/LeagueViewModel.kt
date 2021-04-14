@@ -29,7 +29,6 @@ class LeagueViewModel @Inject constructor(val repository: Repository) : ViewMode
                     if (response.isNotEmpty())
                         leagues.league.isSelected = response[0].flag
                 }
-                it
             }.collect {
                 leagues.postValue(it.getOrNull())
             }
