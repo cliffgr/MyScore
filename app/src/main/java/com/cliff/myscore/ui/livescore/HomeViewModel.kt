@@ -10,6 +10,7 @@ import com.cliff.myscore.model.FixtureLiveScore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -22,21 +23,24 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     val liveScore: LiveData<List<FixtureLiveScore>>
         get() = _liveScore
 
-    private lateinit var job: Deferred<Unit>
+   // private lateinit var job: Deferred<Unit>
 
     fun getLiveScore() {
-        job = viewModelScope.launchPeriodicAsync(TimeUnit.MINUTES.toMillis(5)) {
+       /* job = viewModelScope.launchPeriodicAsync(TimeUnit.MINUTES.toMillis(5)) {
             runBlocking {
-                repository.getLiveScores().collect {
-                    _liveScore.postValue(it.getOrNull())
 
-                }
+            }
+        }*/
+
+        viewModelScope.launch {
+            repository.getLiveScores().collect {
+                _liveScore.postValue(it.getOrNull())
             }
         }
     }
 
     override fun onCleared() {
         super.onCleared()
-        job?.cancel()
+        //job?.cancel()
     }
 }
