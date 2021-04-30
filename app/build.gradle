@@ -106,7 +106,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
-    implementation 'io.github.cliffgr:cpbar:1.1.0'
+    implementation 'io.github.cliffgr:cpbar:1.1.1'
 
     implementation ("com.github.corouteam:GlideToVectorYou:v2.0.0"){
         exclude group: 'com.caverock', module: 'androidsvg-aar'
