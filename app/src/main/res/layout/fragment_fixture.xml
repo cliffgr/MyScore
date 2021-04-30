@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="@+id/vertical_guideline"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77"
+        app:layout_constraintVertical_bias="0.6"
         app:layout_constraintVertical_chainStyle="packed"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -78,7 +78,7 @@
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77"
+        app:layout_constraintVertical_bias="0.6"
         app:layout_constraintVertical_chainStyle="packed"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -89,6 +89,15 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
+    <ImageView
+        android:id="@+id/country_logo"
+        android:layout_width="25dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView_league"
         android:layout_width="wrap_content"
@@ -96,7 +105,7 @@
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/country_logo"
         app:layout_constraintVertical_bias="0.03"
         tools:text="League Title" />
 
@@ -106,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <TextView
         android:id="@+id/textView_round"
@@ -149,6 +158,17 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/referee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_elapse"
+        app:layout_constraintVertical_bias="0.79"
+        tools:text="TextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

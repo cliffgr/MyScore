@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cliff.myscore.R
+import com.cliff.myscore.databinding.FragmentEventsBinding
+import com.cliff.myscore.databinding.FragmentOverViewBinding
 import com.cliff.myscore.ui.match.FixtureViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +27,10 @@ class EventViewFragment : Fragment() {
             }
     }
 
-    private val viewModel: FixtureViewModel by navGraphViewModels(R.id.fixtureFragment){
+    private var _binding: FragmentEventsBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: FixtureViewModel by navGraphViewModels(R.id.fixtureFragment) {
         defaultViewModelProviderFactory
     }
 
@@ -36,15 +42,27 @@ class EventViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_over_view, container, false)
+        _binding = FragmentEventsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        with(binding.recyclerView) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = EventAdapter() { id ->
+
+            }
+        }
+
         viewModel.events.observe(requireParentFragment().viewLifecycleOwner, {
             Log.i("EventViewFragment", "Event : $it");
+            with(binding.recyclerView.adapter as EventAdapter) {
+                homeId = it.second
+                awayId = it.third
+                submitList(it.first)
+            }
         })
     }
 

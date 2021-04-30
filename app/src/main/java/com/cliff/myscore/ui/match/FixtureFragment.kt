@@ -22,7 +22,7 @@ class FixtureFragment : Fragment() {
         fun newInstance() = FixtureFragment()
     }
 
-    private val viewModel by navGraphViewModels<FixtureViewModel>(R.id.fixtureFragment){
+    private val viewModel by navGraphViewModels<FixtureViewModel>(R.id.fixtureFragment) {
         defaultViewModelProviderFactory
     }
 
@@ -96,13 +96,21 @@ class FixtureFragment : Fragment() {
         })
 
         viewModel.fixture.observe(viewLifecycleOwner, { fixture ->
-            binding.textViewElapse.text = "${fixture.status.elapsed}'"
+            with(fixture) {
+                binding.textViewElapse.text = "${status.elapsed}'"
+                binding.referee.text = fixture.referee
+            }
         })
 
         viewModel.league.observe(viewLifecycleOwner, { league ->
             with(league) {
-                binding.textViewLeague.text = name
+                binding.textViewLeague.text = "$name - $country"
                 binding.textViewRound.text = round
+
+                Glide.with(requireActivity())
+                    .load(flag)
+                    .centerCrop()
+                    .into(binding.countryLogo)
 
             }
         })

@@ -1,15 +1,14 @@
 package com.cliff.myscore.ui.match
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.cliff.myscore.data.Repository
 import com.cliff.myscore.model.FixtureLiveScore
+import com.cliff.myscore.model.MatchStatistics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class FixtureViewModel @Inject constructor(val repository: Repository) : ViewModel() {
@@ -20,7 +19,7 @@ class FixtureViewModel @Inject constructor(val repository: Repository) : ViewMod
     var fixture: MutableLiveData<FixtureLiveScore.Fixture> = MutableLiveData()
     var league: MutableLiveData<FixtureLiveScore.League> = MutableLiveData()
     var score: MutableLiveData<String> = MutableLiveData()
-    var events: MutableLiveData<List<FixtureLiveScore.Event>> = MutableLiveData()
+    var events: MutableLiveData<Triple<List<FixtureLiveScore.Event>, Int, Int>> = MutableLiveData()
 
     private var _lineup: MutableLiveData<Pair<FixtureLiveScore.Lineup, FixtureLiveScore.Lineup>> =
         MutableLiveData()
@@ -28,8 +27,29 @@ class FixtureViewModel @Inject constructor(val repository: Repository) : ViewMod
 
     private val _statistics =
         MutableLiveData<Pair<FixtureLiveScore.Statistic, FixtureLiveScore.Statistic>>()
-    val statistics: LiveData<Pair<FixtureLiveScore.Statistic, FixtureLiveScore.Statistic>> =
-        _statistics
+    val statistics: LiveData<List<MatchStatistics>> =
+        Transformations.switchMap(_statistics) {
+            transformStatistics(it)
+        }
+
+    private fun transformStatistics(input: Pair<FixtureLiveScore.Statistic, FixtureLiveScore.Statistic>): LiveData<List<MatchStatistics>> {
+        val firstTeamStats = input.first.statistics
+        val secondTeamStats = input.second.statistics
+        val stats: MutableList<MatchStatistics> = mutableListOf()
+        val liveData = MutableLiveData<List<MatchStatistics>>()
+        for (i in firstTeamStats.indices) {
+            val matchStat = MatchStatistics(
+                if (firstTeamStats[i].value != null) firstTeamStats[i].value.toString()
+                    .contains("%") else false,
+                title = firstTeamStats[i].type,
+                team1 = firstTeamStats[i].value ?: 0.0,
+                team2 = secondTeamStats[i].value ?: 0.0
+            )
+            stats.add(matchStat)
+        }
+        liveData.value = stats.toList()
+        return liveData
+    }
 
 
     fun getDetailsOfMatch(fixtureId: Int) {
@@ -55,7 +75,11 @@ class FixtureViewModel @Inject constructor(val repository: Repository) : ViewMod
         if (fixtureLiveScore.statistics.size == 2)
             _statistics.value = Pair(fixtureLiveScore.statistics[0], fixtureLiveScore.statistics[1])
 
-        events.value = fixtureLiveScore.events
+        events.value = Triple(
+            fixtureLiveScore.events,
+            fixtureLiveScore.teams.home.id,
+            fixtureLiveScore.teams.away.id
+        )
 
         if (fixtureLiveScore.lineups.size == 2)
             _lineup.value = Pair(fixtureLiveScore.lineups[0], fixtureLiveScore.lineups[1])
