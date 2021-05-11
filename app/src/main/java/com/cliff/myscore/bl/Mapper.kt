@@ -1,5 +1,6 @@
 package com.cliff.myscore.bl
 
+import android.content.res.Resources
 import android.util.Log
 import android.view.View
 import com.cliff.myscore.model.*
@@ -9,6 +10,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.isActive
+import java.lang.Math.floor
 
 
 fun CountriesRaw.getResponse(): List<Country> {
@@ -51,3 +53,9 @@ fun View.setVisible(visible: Boolean) {
         View.GONE
     }
 }
+
+
+val Int.dp: Int
+    get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+val Int.px: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()

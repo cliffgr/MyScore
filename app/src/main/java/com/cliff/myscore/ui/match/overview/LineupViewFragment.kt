@@ -13,6 +13,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navGraphViewModels
 import com.cliff.myscore.R
+import com.cliff.myscore.databinding.FragmentEventsBinding
+import com.cliff.myscore.databinding.FragmentLineupBinding
 import com.cliff.myscore.ui.match.FixtureViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,29 +22,42 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LineupViewFragment : Fragment() {
 
+    lateinit var lineupType: String
+
     companion object {
+
+        const val ARG_LINEUP_TYPE = "lineup-type"
+
         @JvmStatic
-        fun newInstance() =
+        fun newInstance(lineupType: String) =
             LineupViewFragment().apply {
                 arguments = Bundle().apply {
+                    putString(ARG_LINEUP_TYPE, lineupType)
                 }
             }
     }
 
-    private val viewModel: FixtureViewModel by navGraphViewModels(R.id.fixtureFragment){
+    private var _binding: FragmentLineupBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: FixtureViewModel by navGraphViewModels(R.id.fixtureFragment) {
         defaultViewModelProviderFactory
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            lineupType = it.getString(ARG_LINEUP_TYPE, "")
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_over_view, container, false)
+        _binding = FragmentLineupBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,7 +65,14 @@ class LineupViewFragment : Fragment() {
 
         viewModel.lineup.observe(requireParentFragment().viewLifecycleOwner, {
             Log.i("LineupViewFragment", "Lineup : $it");
+            if (lineupType == "Home") {
+                binding.teamCustonView.bind(it.first.startXI)
+            } else if (lineupType == "Away") {
+                binding.teamCustonView.bind(it.second.startXI)
+            }
         })
+
+
     }
 
 

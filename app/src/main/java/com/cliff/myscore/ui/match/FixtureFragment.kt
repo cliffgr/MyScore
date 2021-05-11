@@ -55,15 +55,15 @@ class FixtureFragment : Fragment() {
         val pages = listOf(
             OverViewFragment.newInstance(),
             EventViewFragment.newInstance(),
-            LineupViewFragment.newInstance(),
-            OverViewFragment.newInstance()
+            LineupViewFragment.newInstance("Home"),
+            LineupViewFragment.newInstance("Away"),
         )
 
         val pageTitles = listOf(
             "Overview",
             "Events",
-            "Lineups",
-            "Table"
+            "Lineup H",
+            "Lineup A"
         )
 
         binding.viewPager.apply {
