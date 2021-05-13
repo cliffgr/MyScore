@@ -31,21 +31,24 @@ class TeamView @JvmOverloads constructor(
 
         binding.apply {
 
-            val ids = members.map{ member ->
+            val ids: List<Pair<String, Int>> = members.map { member ->
                 val view = AvatarAndNameView(context, member.player)
                 val generateViewId = View.generateViewId()
                 view.id = generateViewId
                 teamWrapper.addView(view)
                 memberViews.add(view)
-                generateViewId
+                Pair(member.player.pos, generateViewId)
             }
 
-            val data: MutableList<Int> = mutableListOf()
-            data.add(ids[0])
+            val gatekeepers: List<Int> =ids.filter { it.first=="G" }.map { it.second }
+            val defenders: List<Int> =ids.filter { it.first=="D" }.map { it.second }
+            val centers: List<Int> =ids.filter { it.first=="M" }.map { it.second }
+            val forwards: List<Int> =ids.filter { it.first=="F" }.map { it.second }
 
-            teamMembersG.referencedIds = data.toIntArray()
-
-            teamMembersD.referencedIds = ids.subList(1, ids.size).toIntArray()
+            teamMembersG.referencedIds =gatekeepers.toIntArray()
+            teamMembersD.referencedIds = defenders.toIntArray()
+            teamMembersM.referencedIds=centers.toIntArray()
+            teamMembersF.referencedIds=forwards.toIntArray()
 
         }
     }
