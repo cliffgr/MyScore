@@ -36,18 +36,22 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
         viewModelScope.launch {
             repository.getLiveScores().collect { result ->
 
-                val listofMatches: MutableList<LiveScore> = arrayListOf()
+                val listOfMatches: MutableList<LiveScore> = arrayListOf()
                 val fixturesList: List<FixtureLiveScore> = result.getOrNull()!!
-                val filted = fixturesList.distinctBy { it.league.country }.map { it.league.country }
-                filted.forEach { country ->
-                    val liveScore=LiveScore(country,null,true)
-                    listofMatches.add(liveScore)
-                    fixturesList.filter { country==it.league.country }.forEach{
-                        val internalScore= LiveScore(null , it , false)
-                        listofMatches.add(internalScore)
+
+                fixturesList
+                    .distinctBy { it.league.country }
+                    .map { it.league.country }
+                    .forEach { country ->
+                        val liveScore = LiveScore(country, null, null, true)
+                        listOfMatches.add(liveScore)
+                        fixturesList.filter { country == it.league.country }.forEach {
+                            val internalScore = LiveScore(null, null, it, false)
+                            liveScore.countryLogo = it.league.flag
+                            listOfMatches.add(internalScore)
+                        }
                     }
-                }
-                _liveScore.postValue(listofMatches)
+                _liveScore.postValue(listOfMatches)
             }
         }
     }

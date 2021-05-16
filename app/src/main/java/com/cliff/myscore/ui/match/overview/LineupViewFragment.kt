@@ -66,9 +66,9 @@ class LineupViewFragment : Fragment() {
         viewModel.lineup.observe(requireParentFragment().viewLifecycleOwner, {
             Log.i("LineupViewFragment", "Lineup : $it");
             if (lineupType == "Home") {
-                binding.teamCustonView.bind(it.first.startXI)
+                binding.teamCustonView.bind(it.first.startXI, it.first.coach, it.first.formation)
             } else if (lineupType == "Away") {
-                binding.teamCustonView.bind(it.second.startXI)
+                binding.teamCustonView.bind(it.second.startXI, it.second.coach, it.second.formation)
             }
         })
 

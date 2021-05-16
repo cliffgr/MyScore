@@ -101,19 +101,20 @@
             android:id="@+id/textView_league"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="League Title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.03" />
+            app:layout_constraintVertical_bias="0.03"
+            tools:text="League Title" />
 
         <View
             android:id="@+id/horizontal_guideline"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="0dp"
             android:background="?android:attr/listDivider"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -122,11 +123,11 @@
             android:id="@+id/textView_round"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="round 1"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_league" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_league"
+            tools:text="round 1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

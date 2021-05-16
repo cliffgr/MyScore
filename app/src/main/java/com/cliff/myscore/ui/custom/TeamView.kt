@@ -23,13 +23,20 @@ class TeamView @JvmOverloads constructor(
         radius = 8.toFloat()
     }
 
-    fun bind(members: List<FixtureLiveScore.Lineup.StartXI>) {
+    fun bind(
+        members: List<FixtureLiveScore.Lineup.StartXI>,
+        coach: FixtureLiveScore.Lineup.Coach,
+        formationString: String
+    ) {
         memberViews.forEach {
             binding.teamWrapper.removeView(it)
         }
         memberViews.clear()
 
+
         binding.apply {
+
+            formation.text = formationString
 
             val ids: List<Pair<String, Int>> = members.map { member ->
                 val view = AvatarAndNameView(context, member.player)

@@ -40,7 +40,7 @@ class LiveScoreAdapter(private val listener: (Int) -> Unit) :
             }
 
             is HeaderHolder -> {
-                holder.bind(item.country!!)
+                holder.bind(item.country!!, item.countryLogo!!)
             }
         }
     }
@@ -78,7 +78,7 @@ class LiveScoreAdapter(private val listener: (Int) -> Unit) :
                     "${fixtureLiveScore.goals.home} : ${fixtureLiveScore.goals.away}"
                 textViewElapse.text = "${fixtureLiveScore.fixture.status.elapsed}'"
                 textViewLeague.text =
-                    "${fixtureLiveScore.league.country} - ${fixtureLiveScore.league.name}"
+                    "${fixtureLiveScore.league.name}"
                 textViewRound.text = fixtureLiveScore.league.round
 
                 Glide.with(itemView)
@@ -105,8 +105,12 @@ class LiveScoreAdapter(private val listener: (Int) -> Unit) :
             }
         }
 
-        fun bind(title: String) {
-            itemHeader.textView.text = title
+        fun bind(title: String, logo: String) {
+            itemHeader.countryName.text = title
+            Glide.with(itemView)
+                .load(logo)
+                .centerCrop()
+                .into(itemHeader.countryLogo)
         }
     }
 
