@@ -40,15 +40,15 @@ class TeamView @JvmOverloads constructor(
                 Pair(member.player.pos, generateViewId)
             }
 
-            val gatekeepers: List<Int> =ids.filter { it.first=="G" }.map { it.second }
-            val defenders: List<Int> =ids.filter { it.first=="D" }.map { it.second }
-            val centers: List<Int> =ids.filter { it.first=="M" }.map { it.second }
-            val forwards: List<Int> =ids.filter { it.first=="F" }.map { it.second }
+            val gatekeepers: List<Int> = ids.filter { it.first == "G" }.map { it.second }
+            val defenders: List<Int> = ids.filter { it.first == "D" }.map { it.second }
+            val centers: List<Int> = ids.filter { it.first == "M" }.map { it.second }
+            val forwards: List<Int> = ids.filter { it.first == "F" }.map { it.second }
 
-            teamMembersG.referencedIds =gatekeepers.toIntArray()
+            teamMembersG.referencedIds = gatekeepers.toIntArray()
             teamMembersD.referencedIds = defenders.toIntArray()
-            teamMembersM.referencedIds=centers.toIntArray()
-            teamMembersF.referencedIds=forwards.toIntArray()
+            teamMembersM.referencedIds = centers.toIntArray()
+            teamMembersF.referencedIds = forwards.toIntArray()
 
         }
     }
