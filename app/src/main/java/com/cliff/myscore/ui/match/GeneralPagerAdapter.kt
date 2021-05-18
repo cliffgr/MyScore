@@ -1,19 +1,19 @@
 package com.cliff.myscore.ui.match
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class GeneralPagerAdapter(
-    fm: FragmentManager,
-    val pages: List<Fragment>,
-    val title: List<String>
+    fm: Fragment,
+    val pages: List<Fragment>
 ) :
-    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    FragmentStateAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment = pages[position]
+    override fun getItemCount(): Int {
+        return pages.size
+    }
 
-    override fun getCount(): Int = pages.size
-
-    override fun getPageTitle(position: Int): CharSequence? = title[position]
+    override fun createFragment(position: Int): Fragment {
+        return pages[position]
+    }
 }

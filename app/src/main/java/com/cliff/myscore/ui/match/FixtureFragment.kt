@@ -13,6 +13,7 @@ import com.cliff.myscore.databinding.FragmentFixtureBinding
 import com.cliff.myscore.ui.match.overview.EventViewFragment
 import com.cliff.myscore.ui.match.overview.LineupViewFragment
 import com.cliff.myscore.ui.match.overview.OverViewFragment
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,15 +67,21 @@ class FixtureFragment : Fragment() {
             "Lineup A"
         )
 
+
+
         binding.viewPager.apply {
-            adapter = GeneralPagerAdapter(
-                childFragmentManager,
-                pages = pages,
-                title = pageTitles
-            )
+            adapter =
+                GeneralPagerAdapter(
+                    this@FixtureFragment,
+                    pages = pages,
+                )
+
             offscreenPageLimit = 3
         }
-        binding.tabs.setupWithViewPager(binding.viewPager)
+
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            tab.text = pageTitles[position]
+        }.attach()
     }
 
     private fun initObservers() {
