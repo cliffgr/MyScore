@@ -52,15 +52,16 @@
 
         <fragment
             android:id="@+id/navigation_dashboard"
-            android:name="com.cliff.myscore.ui.favourite.FavouriteFragment"
+            android:name="com.cliff.myscore.ui.games.GamesFragment"
             android:label="@string/title_dashboard"
-            tools:layout="@layout/fragment_dashboard" />
+            tools:layout="@layout/fragment_games" />
 
         <fragment
             android:id="@+id/navigation_notifications"
             android:name="com.cliff.myscore.ui.notifications.NotificationsFragment"
             android:label="@string/title_notifications"
             tools:layout="@layout/fragment_notifications" />
+
         <fragment
             android:id="@+id/fixtureFragment"
             android:name="com.cliff.myscore.ui.match.FixtureFragment"

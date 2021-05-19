@@ -25,19 +25,17 @@ class NetworkModule {
         return retrofit.create(FootballApi::class.java)
     }
 
-
     @Provides
     fun providesOkhttpInterceptor(): Interceptor {
         return Interceptor { chain: Interceptor.Chain ->
             val original: Request = chain.request()
             val requestBuilder: Request.Builder = original.newBuilder()
-                .addHeader("x-rapidapi-host","v3.football.api-sports.io")
-                .addHeader("x-rapidapi-key","1778e36d7f134097098abbf4a584ec15")
+                .addHeader("x-rapidapi-host", "v3.football.api-sports.io")
+                .addHeader("x-rapidapi-key", "1778e36d7f134097098abbf4a584ec15")
             val request: Request = requestBuilder.build()
             chain.proceed(request)
         }
     }
-
 
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
@@ -49,7 +47,6 @@ class NetworkModule {
             }
         }
     }
-
 
     @Provides
     fun provideOkHttpClient(
@@ -70,5 +67,4 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
 }

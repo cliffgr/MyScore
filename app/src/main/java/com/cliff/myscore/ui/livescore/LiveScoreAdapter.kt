@@ -38,9 +38,8 @@ class LiveScoreAdapter(private val listener: (Int) -> Unit) :
                 }
 
             }
-
             is HeaderHolder -> {
-                holder.bind(item.country!!, item.countryLogo!!)
+                holder.bind(item.country!!, item?.countryLogo ?: "")
             }
         }
     }

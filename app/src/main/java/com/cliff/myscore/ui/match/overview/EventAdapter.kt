@@ -1,6 +1,5 @@
 package com.cliff.myscore.ui.match.overview
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.cliff.myscore.R
 import com.cliff.myscore.databinding.ItemEventBinding
 import com.cliff.myscore.model.FixtureLiveScore.Event
@@ -73,9 +71,7 @@ class EventAdapter(private val listener: (Int) -> Unit) :
                 "Substitution 1", "Substitution 2", "Substitution 3", "Substitution 4" -> imageView.setImageResource(
                     R.drawable.ic_substitution
                 )
-
             }
-
         }
     }
 }

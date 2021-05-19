@@ -74,6 +74,7 @@ class FixtureFragment : Fragment() {
                 GeneralPagerAdapter(
                     this@FixtureFragment,
                     pages = pages,
+                    pageTitles.size
                 )
 
             offscreenPageLimit = 3

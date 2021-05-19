@@ -64,7 +64,6 @@ class LineupViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.lineup.observe(requireParentFragment().viewLifecycleOwner, {
-            Log.i("LineupViewFragment", "Lineup : $it");
             if (lineupType == "Home") {
                 binding.teamCustonView.bind(it.first.startXI, it.first.coach, it.first.formation)
             } else if (lineupType == "Away") {
