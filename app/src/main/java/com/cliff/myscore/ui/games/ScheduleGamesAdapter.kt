@@ -95,10 +95,8 @@ class ScheduleGamesAdapter(private val listener: (Int) -> Unit) :
                         textViewStatus.text = "NS"
                     }
                     else -> {
-                        textViewScore.text = "${fixtureLiveScore.goals.home} : ${fixtureLiveScore.goals.away}"
+                        textViewScore.text = "${fixtureLiveScore.goals.home} - ${fixtureLiveScore.goals.away}"
                         textViewStatus.text = fixtureLiveScore.fixture.status.long
-                        if(fixtureLiveScore.fixture.status.short=="PST")
-                            textViewScore.paintFlags =  Paint.STRIKE_THRU_TEXT_FLAG
                     }
                 }
 

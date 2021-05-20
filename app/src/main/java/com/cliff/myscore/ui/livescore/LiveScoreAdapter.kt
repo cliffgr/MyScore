@@ -12,8 +12,8 @@ import com.cliff.myscore.model.FixtureLiveScore
 import com.cliff.myscore.model.LiveScore
 
 
-private val ITEM_VIEW_TYPE_HEADER = 0
-private val ITEM_VIEW_TYPE_ITEM = 1
+private const val ITEM_VIEW_TYPE_HEADER = 0
+private const val ITEM_VIEW_TYPE_ITEM = 1
 
 class LiveScoreAdapter(private val listener: (Int) -> Unit) :
     ListAdapter<LiveScore, RecyclerView.ViewHolder>(LiveScoreDiffCallback()) {
@@ -74,7 +74,7 @@ class LiveScoreAdapter(private val listener: (Int) -> Unit) :
                 textViewHome.text = fixtureLiveScore.teams.home.name
                 textViewAway.text = fixtureLiveScore.teams.away.name
                 textViewScore.text =
-                    "${fixtureLiveScore.goals.home} : ${fixtureLiveScore.goals.away}"
+                    "${fixtureLiveScore.goals.home} - ${fixtureLiveScore.goals.away}"
                 textViewElapse.text = "${fixtureLiveScore.fixture.status.elapsed}'"
                 textViewLeague.text =
                     "${fixtureLiveScore.league.name}"
