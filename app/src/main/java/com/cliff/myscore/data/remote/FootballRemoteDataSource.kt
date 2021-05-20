@@ -38,6 +38,15 @@ class FootballRemoteDataSource @Inject constructor(
         }
     }
 
+    suspend fun fetchScheduledMatchesByDate(date : String) :Flow<Result<FixturesRaw>> {
+        return flow {
+            emit(Result.success(footballApi.fetchScheduledMatches(date)))
+        }.catch { exception ->
+            emit(Result.failure(exception))
+        }
+    }
+
+
     suspend fun fetchLeagues(code: String, current: Boolean): Flow<Result<LeaguesRaw>> {
         return flow {
             emit(Result.success(footballApi.fetchLeagues(code, current)))

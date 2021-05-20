@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
         with(binding.recyclerView) {
             layoutManager= LinearLayoutManager(context)
             adapter= LiveScoreAdapter(){
-            //action_navigation_home_to_fixtureFragment
                 val directions: NavDirections = HomeFragmentDirections.actionNavigationHomeToFixtureFragment(it)
                 findNavController().navigate(directions)
             }

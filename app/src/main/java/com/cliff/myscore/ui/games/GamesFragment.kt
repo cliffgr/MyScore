@@ -34,34 +34,7 @@ class GamesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupViewPager()
-
-        /*  dashboardViewModel.getSupportedCountries();
-
-          with(binding.recyclerView) {
-              layoutManager = LinearLayoutManager(context)
-              adapter = CountriesAdapter() {
-                  val directions: NavDirections =
-                      CountriesFragmentDirections.actionCountriesFragmentToLeagueFragment(it)
-
-                  findNavController().navigate(directions)
-              }
-          }
-
-          binding.button.setOnClickListener {
-              val directions: NavDirections =
-                  CountriesFragmentDirections.actionCountriesFragmentToMobileNavigation()
-              findNavController().navigate(directions)
-          }
-
-          dashboardViewModel.countries.observe(viewLifecycleOwner, {
-              (binding.recyclerView.adapter as CountriesAdapter).submitList(it)
-          })
-
-          dashboardViewModel.loader.observe(viewLifecycleOwner, { flag ->
-              binding.progressBar.setVisible(flag)
-          })*/
     }
 
     private fun setupViewPager() {
@@ -84,7 +57,7 @@ class GamesFragment : Fragment() {
                 }
             }
 
-            ScheduledGamesFragment.newInstance(i)
+            pages.add(ScheduledGamesFragment.newInstance(i))
         }
 
         binding.viewPager.apply {

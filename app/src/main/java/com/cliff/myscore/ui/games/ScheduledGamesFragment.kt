@@ -1,15 +1,25 @@
 package com.cliff.myscore.ui.games
 
-import androidx.lifecycle.ViewModelProvider
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.cliff.myscore.R
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.cliff.myscore.databinding.FragmentScheduledGamesBinding
+import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
+@AndroidEntryPoint
 class ScheduledGamesFragment : Fragment() {
     private var dateOffset: Int = 0
+    private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+
+    private var _binding: FragmentScheduledGamesBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         const val ARG_DATE_OFFSET = "date_offset"
@@ -22,12 +32,11 @@ class ScheduledGamesFragment : Fragment() {
         }
     }
 
-    private lateinit var viewModel: ScheduledGamesViewModel
+    private val viewModel: ScheduledGamesViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             dateOffset = it.getInt(ARG_DATE_OFFSET, 0)
         }
@@ -37,13 +46,38 @@ class ScheduledGamesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_scheduled_games, container, false)
+        _binding = FragmentScheduledGamesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ScheduledGamesViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initObservers()
+
+        with(binding.recyclerView) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = ScheduleGamesAdapter() {
+                // val directions: NavDirections =
+                // com.cliff.myscore.ui.livescore.HomeFragmentDirections.actionNavigationHomeToFixtureFragment(
+                //   it
+                //  )
+                // findNavController().navigate(directions)
+            }
+        }
+
+        val cal = Calendar.getInstance()
+        cal.time = Date()
+        cal.add(Calendar.DATE, dateOffset)
+        val dateTobeRequested = simpleDateFormat.format(cal.time)
+
+        viewModel.getScheduledMatchesForTheDay(dateTobeRequested);
+    }
+
+    private fun initObservers() {
+        viewModel.scheduledMatches.observe(viewLifecycleOwner, {
+            (binding.recyclerView.adapter as ScheduleGamesAdapter).submitList(it)
+        })
     }
 
 }

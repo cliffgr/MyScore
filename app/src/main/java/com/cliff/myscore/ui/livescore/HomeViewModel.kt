@@ -27,18 +27,11 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     // private lateinit var job: Deferred<Unit>
 
     fun getLiveScore() {
-        /* job = viewModelScope.launchPeriodicAsync(TimeUnit.MINUTES.toMillis(5)) {
-             runBlocking {
-
-             }
-         }*/
-
         viewModelScope.launch {
             repository.getLiveScores().collect { result ->
 
                 val listOfMatches: MutableList<LiveScore> = arrayListOf()
                 val fixturesList: List<FixtureLiveScore> = result.getOrNull()!!
-
                 fixturesList
                     .distinctBy { it.league.country }
                     .map { it.league.country }
