@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat
 private val ITEM_VIEW_TYPE_HEADER = 0
 private val ITEM_VIEW_TYPE_ITEM = 1
 
-class ScheduleGamesAdapter(private val listener: (Int) -> Unit) :
+class ScheduleGamesAdapter(private val listener: (Int,String) -> Unit) :
     ListAdapter<LiveScore, RecyclerView.ViewHolder>(LiveScoreDiffCallback()) {
 
 
@@ -38,7 +38,7 @@ class ScheduleGamesAdapter(private val listener: (Int) -> Unit) :
             is ViewHolder -> {
                 holder.bind(item.fixtureLiveScore!!)
                 holder.itemView.setOnClickListener {
-                    listener(item.fixtureLiveScore!!.fixture.id)
+                    listener(item.fixtureLiveScore!!.fixture.id, item.fixtureLiveScore!!.fixture.status.short)
                 }
 
             }

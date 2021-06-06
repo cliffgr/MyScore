@@ -35,9 +35,7 @@ class TeamView @JvmOverloads constructor(
 
 
         binding.apply {
-
             formation.text = formationString
-
             val ids: List<Pair<String, Int>> = members.map { member ->
                 val view = AvatarAndNameView(context, member.player)
                 val generateViewId = View.generateViewId()

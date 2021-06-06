@@ -43,7 +43,7 @@
         <fragment
             android:id="@+id/navigation_home"
             android:name="com.cliff.myscore.ui.livescore.HomeFragment"
-            android:label="@string/title_home"
+            android:label="@string/live"
             tools:layout="@layout/fragment_home" >
             <action
                 android:id="@+id/action_navigation_home_to_fixtureFragment"
@@ -53,8 +53,12 @@
         <fragment
             android:id="@+id/navigation_dashboard"
             android:name="com.cliff.myscore.ui.games.GamesFragment"
-            android:label="@string/title_dashboard"
-            tools:layout="@layout/fragment_games" />
+            android:label="@string/matches"
+            tools:layout="@layout/fragment_games" >
+            <action
+                android:id="@+id/action_navigation_dashboard_to_fixtureFragment"
+                app:destination="@id/fixtureFragment" />
+        </fragment>
 
         <fragment
             android:id="@+id/navigation_notifications"
@@ -76,6 +80,17 @@
             android:name="com.cliff.myscore.ui.match.overview.OverViewFragment"
             android:label="fragment_over_view"
             tools:layout="@layout/fragment_over_view" />
+
+        <fragment
+            android:id="@+id/scheduledGamesFragment"
+            android:name="com.cliff.myscore.ui.games.ScheduledGamesFragment"
+            android:label="ScheduledGamesFragment"
+            tools:layout="@layout/fragment_scheduled_games">
+            <action
+                android:id="@+id/action_scheduledGamesFragment_to_fixtureFragment"
+                app:destination="@id/fixtureFragment" />
+        </fragment>
+
     </navigation>
 
 

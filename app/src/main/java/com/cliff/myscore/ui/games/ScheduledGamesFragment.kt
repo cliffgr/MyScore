@@ -2,11 +2,14 @@ package com.cliff.myscore.ui.games
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cliff.myscore.databinding.FragmentScheduledGamesBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +37,6 @@ class ScheduledGamesFragment : Fragment() {
 
     private val viewModel: ScheduledGamesViewModel by viewModels()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -57,12 +59,22 @@ class ScheduledGamesFragment : Fragment() {
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = ScheduleGamesAdapter() {
-                // val directions: NavDirections =
-                // com.cliff.myscore.ui.livescore.HomeFragmentDirections.actionNavigationHomeToFixtureFragment(
-                //   it
-                //  )
-                // findNavController().navigate(directions)
+            adapter = ScheduleGamesAdapter() { id, status ->
+                Log.e("Tap", "ID : ${id} - Status : ${status}")
+                when (status) {
+                    "FT" -> {
+                        val directions: NavDirections =
+                            GamesFragmentDirections.actionNavigationDashboardToFixtureFragment(
+                                id
+                            )
+                        findNavController().navigate(directions)
+                    }
+                    else -> {
+
+                    }
+
+                }
+
             }
         }
 
