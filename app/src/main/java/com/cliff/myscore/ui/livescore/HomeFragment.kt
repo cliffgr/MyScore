@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cliff.myscore.R
 import com.cliff.myscore.databinding.FragmentHomeBinding
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,9 +37,11 @@ class HomeFragment : Fragment() {
         homeViewModel.getLiveScore()
 
         with(binding.recyclerView) {
-            layoutManager= LinearLayoutManager(context)
-            adapter= LiveScoreAdapter(){
-                val directions: NavDirections = HomeFragmentDirections.actionNavigationHomeToFixtureFragment(it)
+            layoutManager = LinearLayoutManager(context)
+            setEmptyView(binding.group)
+            adapter = LiveScoreAdapter() {
+                val directions: NavDirections =
+                    HomeFragmentDirections.actionNavigationHomeToFixtureFragment(it)
                 findNavController().navigate(directions)
             }
         }
