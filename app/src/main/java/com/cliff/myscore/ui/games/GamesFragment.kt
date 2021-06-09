@@ -75,7 +75,6 @@ class GamesFragment : Fragment() {
             tab.text = pageTitles[position]
         }.attach()
 
-        // binding.tabs.setScrollPosition(5,0f,false)
-        //binding.viewPager.setCurrentItem(5,true)
+        binding.viewPager.setCurrentItem(6,false)
     }
 }

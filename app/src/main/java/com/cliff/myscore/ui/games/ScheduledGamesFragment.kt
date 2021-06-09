@@ -19,7 +19,7 @@ import java.util.*
 @AndroidEntryPoint
 class ScheduledGamesFragment : Fragment() {
     private var dateOffset: Int = 0
-    private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+    private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.getDefault())
 
     private var _binding: FragmentScheduledGamesBinding? = null
     private val binding get() = _binding!!
