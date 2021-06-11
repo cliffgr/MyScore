@@ -67,8 +67,6 @@ class GamesFragment : Fragment() {
                     pages = pages,
                     pageTitles.size
                 )
-
-            //offscreenPageLimit = 3
         }
 
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
