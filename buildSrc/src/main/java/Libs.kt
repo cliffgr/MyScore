@@ -46,4 +46,7 @@ object Libs {
 
     const val hilt_compiler: String = "com.google.dagger:hilt-compiler:" +
             Versions.hilt
+
+    const val cpbar: String = "io.github.cliffgr:cpbar:" +
+            Versions.cpbar
 }

@@ -105,7 +105,7 @@ dependencies {
     kapt Libs.room_compiler
     implementation Libs.room_ktx
 
-    implementation 'io.github.cliffgr:cpbar:1.1.1'
+    implementation Libs.cpbar
 
     implementation("com.github.corouteam:GlideToVectorYou:v2.0.0") {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
@@ -113,7 +113,7 @@ dependencies {
     }
 
 
-    testImplementation 'junit:junit:4.+'
+    testImplementation TestDependencies.junit4
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
