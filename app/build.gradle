@@ -107,22 +107,23 @@ dependencies {
 
     implementation Libs.cpbar
 
-    implementation("com.github.corouteam:GlideToVectorYou:v2.0.0") {
+
+    implementation("${Libs.glideToVector}") {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
         exclude group: 'com.github.bumptech.glide', module: 'compiler'
     }
 
 
     testImplementation TestDependencies.junit4
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation TestDependencies.coroutines_test
+    testImplementation TestDependencies.core_testing
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
     testImplementation 'org.mockito:mockito-inline:2.21.0'
 
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    androidTestImplementation "androidx.room:room-testing:$room_version"
-    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
-    androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
+    androidTestImplementation AndroidTestDependencies.junit
+    androidTestImplementation AndroidTestDependencies.espresso_core
+    androidTestImplementation AndroidTestDependencies.room_testing
+    androidTestImplementation AndroidTestDependencies.coroutines_test
+    androidTestImplementation AndroidTestDependencies.core_testing
 }

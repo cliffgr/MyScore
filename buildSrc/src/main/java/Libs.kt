@@ -49,4 +49,7 @@ object Libs {
 
     const val cpbar: String = "io.github.cliffgr:cpbar:" +
             Versions.cpbar
+
+    const val glideToVector: String = "com.github.corouteam:GlideToVectorYou:" +
+            Versions.glideToVector
 }

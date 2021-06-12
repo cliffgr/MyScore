@@ -3,25 +3,24 @@ package com.cliff.myscore
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.runner.AndroidJUnit4
+
+
 import com.cliff.myscore.data.local.AppDatabase
 import com.cliff.myscore.data.local.dao.FavouriteLeaguesDao
 import com.cliff.myscore.data.local.entity.FavLeague
 import com.cliff.myscore.utils.BaseUnitTest
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
+
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import java.io.IOException
 
-@RunWith(AndroidJUnit4::class)
+
 class DatabaseShould : BaseUnitTest() {
 
     private lateinit var favouriteLeaguesDao: FavouriteLeaguesDao
