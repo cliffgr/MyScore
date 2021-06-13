@@ -17,20 +17,20 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-       /* Room has the following annotation processor options:
+        /* Room has the following annotation processor options:
 
-        room.schemaLocation: Configures and enables exporting database schemas into JSON files in the given directory. See Room Migrations for more information.
-        room.incremental: Enables Gradle incremental annotation processor.
-        room.expandProjection: Configures Room to rewrite queries such that their top star projection is expanded to only contain the columns defined in the DAO method return type.*/
+         room.schemaLocation: Configures and enables exporting database schemas into JSON files in the given directory. See Room Migrations for more information.
+         room.incremental: Enables Gradle incremental annotation processor.
+         room.expandProjection: Configures Room to rewrite queries such that their top star projection is expanded to only contain the columns defined in the DAO method return type.*/
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString(),
-                              "room.incremental":"true",
-                              "room.expandProjection":"true"]
+                arguments += ["room.schemaLocation"  : "$projectDir/schemas".toString(),
+                              "room.incremental"     : "true",
+                              "room.expandProjection": "true"]
             }
         }
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner AndroidTestDependencies.instrumentation_runner
     }
 
     buildTypes {
@@ -39,13 +39,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
     }
@@ -69,62 +72,58 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
-    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation Libs.kotlinStandardLibrary
+    implementation Libs.core_ktx
+    implementation Libs.appcompat
+    implementation Libs.material
+    implementation Libs.constraintlayout
+    implementation Libs.recyclerview
 
     //Retrofit2
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    implementation Libs.retrofit2
+    implementation Libs.retrofit2_converter_gson
+    implementation Libs.logging_interceptor
 
     //LifeCycle
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation Libs.lifecycle_livedata
+    implementation Libs.lifecycle_viewmodel
 
     //Navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation Libs.navigation_fragment_ktx
+    implementation Libs.navigation_ui_ktx
 
     //Hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation Libs.hilt_android
+    kapt Libs.hilt_compiler
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
-    implementation 'com.caverock:androidsvg-aar:1.3'
+    implementation Libs.glide
+    annotationProcessor Libs.glide_compiler
 
     //Room
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
+    implementation Libs.room_runtime
+    kapt Libs.room_compiler
+    implementation Libs.room_ktx
 
-    implementation 'io.github.cliffgr:cpbar:1.1.1'
+    implementation Libs.cpbar
 
-    implementation ("com.github.corouteam:GlideToVectorYou:v2.0.0"){
-        exclude group: 'com.caverock', module: 'androidsvg-aar'
+
+    implementation("${Libs.glideToVector}") {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
         exclude group: 'com.github.bumptech.glide', module: 'compiler'
     }
 
 
-    testImplementation 'junit:junit:4.+'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
-    testImplementation 'org.mockito:mockito-inline:2.21.0'
+    testImplementation TestDependencies.junit4
+    testImplementation TestDependencies.coroutines_test
+    testImplementation TestDependencies.core_testing
+    testImplementation TestDependencies.mockito_kotlin
+    testImplementation TestDependencies.mockito_inline
 
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    androidTestImplementation "androidx.room:room-testing:$room_version"
-    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
-    androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
+    androidTestImplementation AndroidTestDependencies.junit
+    androidTestImplementation AndroidTestDependencies.espresso_core
+    androidTestImplementation AndroidTestDependencies.room_testing
+    androidTestImplementation AndroidTestDependencies.coroutines_test
+    androidTestImplementation AndroidTestDependencies.core_testing
 }
