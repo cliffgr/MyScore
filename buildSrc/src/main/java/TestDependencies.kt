@@ -11,4 +11,8 @@ object TestDependencies {
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_version}"
     const val core_testing =
         "androidx.arch.core:core-testing:${Versions.core_testing}"
+    const val mockito_inline: String =
+        "org.mockito:mockito-inline:${Versions.mochito_inline}"
+    const val mockito_kotlin: String =
+        "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockito_kotlin}"
 }

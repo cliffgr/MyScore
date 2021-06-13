@@ -32,6 +32,8 @@ object Versions {
     const val http_interceptor_version = "4.9.0"
     const val coroutines_version = "1.3.0"
     const val core_testing="2.1.0"
+    const val mochito_inline="2.21.0"
+    const val mockito_kotlin="2.1.0"
 
     const val gradle = "4.1.2"
     const val kotlin = "1.4.32"

@@ -20,4 +20,6 @@ object AndroidTestDependencies {
 
     const val junit =
         "androidx.test.ext:junit:${Versions.junit}"
+
+    const val instrumentation_runner = "androidx.test.runner.AndroidJUnitRunner"
 }

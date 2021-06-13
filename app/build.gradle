@@ -30,7 +30,7 @@ android {
                               "room.expandProjection": "true"]
             }
         }
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner AndroidTestDependencies.instrumentation_runner
     }
 
     buildTypes {
@@ -39,13 +39,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
     }
@@ -74,9 +77,6 @@ dependencies {
     implementation Libs.appcompat
     implementation Libs.material
     implementation Libs.constraintlayout
-
-    //implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
     implementation Libs.recyclerview
 
     //Retrofit2
@@ -117,8 +117,8 @@ dependencies {
     testImplementation TestDependencies.junit4
     testImplementation TestDependencies.coroutines_test
     testImplementation TestDependencies.core_testing
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
-    testImplementation 'org.mockito:mockito-inline:2.21.0'
+    testImplementation TestDependencies.mockito_kotlin
+    testImplementation TestDependencies.mockito_inline
 
 
     androidTestImplementation AndroidTestDependencies.junit
