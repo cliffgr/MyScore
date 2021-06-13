@@ -14,6 +14,7 @@ Cooming soon
 
 # Technologies used:
 
+* Buildsrc for dependencies managment
 * Hilt
 * MVVM
 * Retrofit2
