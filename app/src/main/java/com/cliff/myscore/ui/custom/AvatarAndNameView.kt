@@ -7,7 +7,11 @@ import com.bumptech.glide.Glide
 import com.cliff.myscore.databinding.AvatarAndNameViewBinding
 import com.cliff.myscore.model.FixtureLiveScore
 
-class AvatarAndNameView(context: Context, player: FixtureLiveScore.Lineup.StartXI.Player) : LinearLayout(context) {
+class AvatarAndNameView(
+    context: Context,
+    player: FixtureLiveScore.Lineup.StartXI.Player,
+    private val listener: (Int) -> Unit
+) : LinearLayout(context) {
 
     init {
         orientation = VERTICAL
@@ -16,6 +20,10 @@ class AvatarAndNameView(context: Context, player: FixtureLiveScore.Lineup.StartX
         Glide.with(context)
             .load("https://media.api-sports.io/football/players/${player.id}.png")
             .fitCenter()
+            .circleCrop()
             .into(binding.playersImage)
+        this.setOnClickListener {
+            listener(player.id)
+        }
     }
 }

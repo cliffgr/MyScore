@@ -20,6 +20,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/coach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/team_members_g"
+        app:layout_constraintTop_toBottomOf="@+id/formation"
+        tools:text="Kostas Antoniou" />
+
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/team_members_g"

@@ -71,6 +71,10 @@ class LineupViewFragment : Fragment() {
             }
         })
 
+        binding.teamCustonView.setCallback {
+            Log.e("TAG","Player Id  $it")
+        }
+
 
     }
 

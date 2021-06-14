@@ -2,6 +2,7 @@ package com.cliff.myscore.ui.custom
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.cardview.widget.CardView
@@ -14,18 +15,22 @@ class TeamView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : CardView(context, attrs, defStyleAttr) {
 
-
     private val binding = TeamViewBinding.inflate(LayoutInflater.from(context), this, true)
     private val memberViews: MutableList<View> = mutableListOf()
+    private lateinit var callbackListener: (Int) -> Unit
 
     init {
         binding.teamWrapper.background = HalfFieldDrawable(context)
         radius = 8.toFloat()
     }
 
+    fun setCallback(listener: (Int) -> Unit) {
+        callbackListener = listener
+    }
+
     fun bind(
         members: List<FixtureLiveScore.Lineup.StartXI>,
-        coach: FixtureLiveScore.Lineup.Coach,
+        coachModel: FixtureLiveScore.Lineup.Coach,
         formationString: String
     ) {
         memberViews.forEach {
@@ -35,9 +40,12 @@ class TeamView @JvmOverloads constructor(
 
 
         binding.apply {
+            coach.text = coachModel.name
             formation.text = formationString
             val ids: List<Pair<String, Int>> = members.map { member ->
-                val view = AvatarAndNameView(context, member.player)
+                val view = AvatarAndNameView(context, member.player) {
+                    callbackListener(it)
+                }
                 val generateViewId = View.generateViewId()
                 view.id = generateViewId
                 teamWrapper.addView(view)

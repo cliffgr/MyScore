@@ -14,10 +14,11 @@ import com.cliff.myscore.databinding.ItemMatchResultsBinding
 import com.cliff.myscore.model.FixtureLiveScore
 import com.cliff.myscore.model.LiveScore
 import java.text.SimpleDateFormat
+import java.util.*
 
 
-private val ITEM_VIEW_TYPE_HEADER = 0
-private val ITEM_VIEW_TYPE_ITEM = 1
+private const val  ITEM_VIEW_TYPE_HEADER = 0
+private const val ITEM_VIEW_TYPE_ITEM = 1
 
 class ScheduleGamesAdapter(private val listener: (Int,String) -> Unit) :
     ListAdapter<LiveScore, RecyclerView.ViewHolder>(LiveScoreDiffCallback()) {
@@ -27,7 +28,7 @@ class ScheduleGamesAdapter(private val listener: (Int,String) -> Unit) :
         return when (viewType) {
             ITEM_VIEW_TYPE_HEADER -> HeaderHolder.from(parent)
             ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(parent)
-            else -> throw ClassCastException("Unknown viewType ${viewType}")
+            else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
 
@@ -82,7 +83,7 @@ class ScheduleGamesAdapter(private val listener: (Int,String) -> Unit) :
 
 
                 Log.e("Adapter", "Status : ${fixtureLiveScore.fixture.status.short}")
-                val dateFormat = SimpleDateFormat("HH:mm")
+                val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
                 when (fixtureLiveScore.fixture.status.short) {
                     "FT" -> {
                         textViewScore.text =
