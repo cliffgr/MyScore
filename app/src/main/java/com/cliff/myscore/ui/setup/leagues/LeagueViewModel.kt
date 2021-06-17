@@ -6,6 +6,7 @@ import com.cliff.myscore.bl.handleErrors
 import com.cliff.myscore.data.Repository
 import com.cliff.myscore.model.Leagues
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ class LeagueViewModel @Inject constructor(val repository: Repository) : ViewMode
     //https://developer.android.com/topic/libraries/architecture/coroutines#suspend
 
     fun leaguesByCountryCode(countryCode: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.getLeagues(countryCode).onEach {
                 val listLeagues: List<Leagues> = it.getOrDefault(listOf())
                 for (leagues in listLeagues) {

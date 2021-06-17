@@ -8,6 +8,7 @@ import com.cliff.myscore.bl.handleErrors
 import com.cliff.myscore.data.Repository
 import com.cliff.myscore.model.Country
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ class GamesViewModel @Inject constructor(private val repository: Repository) : V
 
     fun getSupportedCountries() {
         _loader.postValue(true)
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.getCountries()
                 .onEach {
                     countries.postValue(it.getOrNull()!!)

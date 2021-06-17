@@ -5,6 +5,7 @@ import com.cliff.myscore.data.Repository
 import com.cliff.myscore.model.FixtureLiveScore
 import com.cliff.myscore.model.MatchStatistics
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -53,7 +54,7 @@ class FixtureViewModel @Inject constructor(val repository: Repository) : ViewMod
 
 
     fun getDetailsOfMatch(fixtureId: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.getFixture(fixtureId).collect { result ->
                 /**
                  * result.getOrDefault(mutableListOf()).let {

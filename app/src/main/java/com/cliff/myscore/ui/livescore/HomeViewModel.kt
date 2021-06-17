@@ -10,6 +10,7 @@ import com.cliff.myscore.model.FixtureLiveScore
 import com.cliff.myscore.model.LiveScore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -24,10 +25,9 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     val liveScore: LiveData<List<LiveScore>>
         get() = _liveScore
 
-    // private lateinit var job: Deferred<Unit>
 
     fun getLiveScore() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.getLiveScores().collect { result ->
 
                 val listOfMatches: MutableList<LiveScore> = arrayListOf()
