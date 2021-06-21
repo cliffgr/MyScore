@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/setup_navigation"
-    app:startDestination="@id/countriesFragment">
+    android:id="@+id/setup_navigation">
     <fragment
         android:id="@+id/countriesFragment"
         android:name="com.cliff.myscore.ui.setup.countries.CountriesFragment"

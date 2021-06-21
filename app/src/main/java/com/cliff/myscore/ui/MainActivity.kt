@@ -36,6 +36,13 @@ class MainActivity : AppCompatActivity() {
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.setup_navigation)
 
+        if(pref.intFirstRunPref)
+            graph.startDestination = R.id.countriesFragment
+        else
+            graph.startDestination=R.id.mobile_navigation
+
+        navHostFragment.navController.graph = graph
+
         val navController = navHostFragment.navController
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -53,12 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if(pref.intFirstRunPref)
-            graph.startDestination = R.id.countriesFragment
-        else
-            graph.startDestination=R.id.mobile_navigation
 
-        navHostFragment.navController.graph = graph
 
     }
 
