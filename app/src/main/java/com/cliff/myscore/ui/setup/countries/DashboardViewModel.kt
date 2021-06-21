@@ -25,7 +25,7 @@ class DashboardViewModel @Inject constructor(private val repository: Repository)
 
     fun getSupportedCountries() {
         _loader.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             repository.getCountries()
                 .onEach {
                     countries.postValue(it.getOrNull()!!)

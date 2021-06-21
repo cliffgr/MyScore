@@ -4,12 +4,9 @@ import android.content.res.Resources
 import android.util.Log
 import android.view.View
 import com.cliff.myscore.model.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.isActive
 import java.lang.Math.floor
 
 
@@ -28,7 +25,7 @@ fun LeaguesRaw.getResponse(): List<Leagues> {
 fun CoroutineScope.launchPeriodicAsync(
     repeatMillis: Long,
     action: () -> Unit
-) = this.async {
+) = this.async(Dispatchers.Default) {
     if (repeatMillis > 0) {
         while (isActive) {
             action()
@@ -41,7 +38,7 @@ fun CoroutineScope.launchPeriodicAsync(
 
 fun <T> Flow<T>.handleErrors(ex: (String) -> Unit): Flow<T> =
     catch { e ->
-        Log.e("Error", "Error : ${e}")
+        Log.e("Error", "Error : $e")
         ex(e.toString())
     }
 

@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cliff.myscore.data.local.sharePref.Pref
 import com.cliff.myscore.databinding.FragmentHomeBinding
 
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -20,6 +22,8 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    @Inject lateinit var pref: Pref
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +50,8 @@ class HomeFragment : Fragment() {
         homeViewModel.liveScore.observe(viewLifecycleOwner, {
             (binding.recyclerView.adapter as LiveScoreAdapter).submitList(it)
         })
+
+        pref.intFirstRunPref=false
     }
 
     override fun onDestroyView() {

@@ -44,7 +44,7 @@
             android:id="@+id/navigation_home"
             android:name="com.cliff.myscore.ui.livescore.HomeFragment"
             android:label="@string/live"
-            tools:layout="@layout/fragment_home" >
+            tools:layout="@layout/fragment_home">
             <action
                 android:id="@+id/action_navigation_home_to_fixtureFragment"
                 app:destination="@id/fixtureFragment" />
@@ -54,7 +54,7 @@
             android:id="@+id/navigation_dashboard"
             android:name="com.cliff.myscore.ui.games.GamesFragment"
             android:label="@string/matches"
-            tools:layout="@layout/fragment_games" >
+            tools:layout="@layout/fragment_games">
             <action
                 android:id="@+id/action_navigation_dashboard_to_fixtureFragment"
                 app:destination="@id/fixtureFragment" />
@@ -70,7 +70,7 @@
             android:id="@+id/fixtureFragment"
             android:name="com.cliff.myscore.ui.match.FixtureFragment"
             android:label="fixture_fragment"
-            tools:layout="@layout/fragment_fixture" >
+            tools:layout="@layout/fragment_fixture">
             <argument
                 android:name="fixtureId"
                 app:argType="integer" />

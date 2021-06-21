@@ -22,17 +22,18 @@ class LeagueViewModel @Inject constructor(val repository: Repository) : ViewMode
     //https://developer.android.com/topic/libraries/architecture/coroutines#suspend
 
     fun leaguesByCountryCode(countryCode: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getLeagues(countryCode).onEach {
-                val listLeagues: List<Leagues> = it.getOrDefault(listOf())
-                for (leagues in listLeagues) {
-                    val response = repository.checkLeagueIfSelected(leagues.league.id)
-                    if (response.isNotEmpty())
-                        leagues.league.isSelected = response[0].flag
+        viewModelScope.launch(Dispatchers.Default) {
+            repository.getLeagues(countryCode)
+                .onEach {
+                    val listLeagues: List<Leagues> = it.getOrDefault(listOf())
+                    for (leagues in listLeagues) {
+                        val response = repository.checkLeagueIfSelected(leagues.league.id)
+                        if (response.isNotEmpty())
+                            leagues.league.isSelected = response[0].flag
+                    }
+                }.collect {
+                    leagues.postValue(it.getOrNull())
                 }
-            }.collect {
-                leagues.postValue(it.getOrNull())
-            }
 
 
             /*  val x : LiveData<FavLeague> = repository.checkLeagueIfSelected(item.league.id).asLiveData()
