@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cliff.myscore.data.local.sharePref.Pref
+import com.cliff.myscore.data.local.sharePref.PrefManager
 import com.cliff.myscore.databinding.FragmentHomeBinding
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    @Inject lateinit var pref: Pref
+    @Inject lateinit var pref: PrefManager
 
     override fun onCreateView(
         inflater: LayoutInflater,

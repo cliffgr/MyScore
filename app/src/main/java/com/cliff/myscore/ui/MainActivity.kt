@@ -3,14 +3,13 @@ package com.cliff.myscore.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavInflater
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cliff.myscore.R
-import com.cliff.myscore.data.local.sharePref.Pref
+import com.cliff.myscore.data.local.sharePref.PrefManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
    lateinit var  navView: BottomNavigationView
 
-   @Inject lateinit var pref : Pref
+   @Inject lateinit var pref : PrefManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
