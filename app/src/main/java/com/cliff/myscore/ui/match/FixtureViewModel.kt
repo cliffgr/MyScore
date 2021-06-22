@@ -54,35 +54,42 @@ class FixtureViewModel @Inject constructor(val repository: Repository) : ViewMod
 
 
     fun getDetailsOfMatch(fixtureId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             repository.getFixture(fixtureId).collect { result ->
                 /**
                  * result.getOrDefault(mutableListOf()).let {
                  *    calculateData(it[0])
                  *  }
                  **/
-                _fixtureMatch.value = result.getOrNull()
+                _fixtureMatch.postValue(result.getOrNull())
                 calculateData(result.getOrDefault(mutableListOf())[0])
             }
         }
     }
 
     private fun calculateData(fixtureLiveScore: FixtureLiveScore) {
-        teams.value = fixtureLiveScore.teams
-        fixture.value = fixtureLiveScore.fixture
-        league.value = fixtureLiveScore.league
-        score.value = "${fixtureLiveScore.goals.home} - ${fixtureLiveScore.goals.away}"
+        teams.postValue(fixtureLiveScore.teams)
+        fixture.postValue(fixtureLiveScore.fixture)
+        league.postValue(fixtureLiveScore.league)
+        score.postValue("${fixtureLiveScore.goals.home} - ${fixtureLiveScore.goals.away}")
 
         if (fixtureLiveScore.statistics.size == 2)
-            _statistics.value = Pair(fixtureLiveScore.statistics[0], fixtureLiveScore.statistics[1])
+            _statistics.postValue(
+                Pair(
+                    fixtureLiveScore.statistics[0],
+                    fixtureLiveScore.statistics[1]
+                )
+            )
 
-        events.value = Triple(
-            fixtureLiveScore.events,
-            fixtureLiveScore.teams.home.id,
-            fixtureLiveScore.teams.away.id
+        events.postValue(
+            Triple(
+                fixtureLiveScore.events,
+                fixtureLiveScore.teams.home.id,
+                fixtureLiveScore.teams.away.id
+            )
         )
 
         if (fixtureLiveScore.lineups.size == 2)
-            _lineup.value = Pair(fixtureLiveScore.lineups[0], fixtureLiveScore.lineups[1])
+            _lineup.postValue(Pair(fixtureLiveScore.lineups[0], fixtureLiveScore.lineups[1]))
     }
 }
