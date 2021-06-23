@@ -6,13 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cliff.myscore.databinding.FragmentLeagueBinding
-import com.cliff.myscore.ui.setup.countries.CountriesAdapter
-import com.cliff.myscore.ui.setup.countries.CountriesFragmentDirections
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
