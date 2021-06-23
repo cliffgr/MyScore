@@ -13,6 +13,7 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 @Module
@@ -31,7 +32,7 @@ class NetworkModule {
             val original: Request = chain.request()
             val requestBuilder: Request.Builder = original.newBuilder()
                 .addHeader("x-rapidapi-host", "v3.football.api-sports.io")
-                .addHeader("x-rapidapi-key", "1778e36d7f134097098abbf4a584ec15")
+                .addHeader("x-rapidapi-key", "d5d3708770b312a15f8e9cb9a777cf94")
             val request: Request = requestBuilder.build()
             chain.proceed(request)
         }
@@ -48,23 +49,33 @@ class NetworkModule {
         }
     }
 
+
     @Provides
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
         providesOkhttpInterceptor: Interceptor
     ): OkHttpClient {
         return OkHttpClient().newBuilder()
+            .readTimeout(15, TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor(providesOkhttpInterceptor)
             .build()
     }
 
+
     @Provides
-    fun provideBaseRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideConverterFactory(): GsonConverterFactory {
+        return GsonConverterFactory.create()
+    }
+
+
+    @Provides
+    fun provideBaseRetrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(gsonConverterFactory)
             .build()
     }
 }
