@@ -26,5 +26,10 @@ interface FootballApi {
         @Query("current") boolean: Boolean
     ): LeaguesRaw
 
+    @GET("standings")
+    suspend fun fetchStanding(
+        @Query("league") leagueCode: String,
+        @Query("season") season: String
+    ): LeaguesRaw
 
 }
