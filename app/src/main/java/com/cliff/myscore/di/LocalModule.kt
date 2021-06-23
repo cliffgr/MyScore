@@ -19,10 +19,9 @@ class LocalModule {
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences? =
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
         context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
 
-    @Singleton
     @Provides
     fun provideSessionManager(preferences: SharedPreferences): PrefManager {
         return PrefManager(preferences)
