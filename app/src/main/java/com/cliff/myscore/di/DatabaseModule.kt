@@ -1,12 +1,13 @@
 package com.cliff.myscore.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.cliff.myscore.data.local.AppDatabase
 import com.cliff.myscore.data.local.dao.FavouriteLeaguesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -17,9 +18,9 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun providesApplicationDatabase(application: Application): AppDatabase {
+    fun providesApplicationDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room
-            .databaseBuilder(application, AppDatabase::class.java, "Football.db")
+            .databaseBuilder(context, AppDatabase::class.java, "Football.db")
             .fallbackToDestructiveMigration()
             .build()
     }
