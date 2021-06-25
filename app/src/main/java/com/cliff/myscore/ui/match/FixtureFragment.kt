@@ -39,15 +39,13 @@ class FixtureFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        val args by navArgs<FixtureFragmentArgs>()
-        viewModel.getDetailsOfMatch(args.fixtureId)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args by navArgs<FixtureFragmentArgs>()
+        viewModel.getDetailsOfMatch(args.fixtureId)
+
         initObservers()
         setupViewPager()
     }

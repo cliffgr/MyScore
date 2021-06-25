@@ -47,14 +47,14 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_home, R.id.navigation_matches, R.id.navigation_notifications
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications -> showBottomNavigation()
+                R.id.navigation_home, R.id.navigation_matches, R.id.navigation_notifications -> showBottomNavigation()
                 else -> hideBottomNavigation()
             }
         }

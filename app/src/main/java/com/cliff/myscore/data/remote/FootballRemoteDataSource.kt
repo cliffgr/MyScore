@@ -55,4 +55,12 @@ class FootballRemoteDataSource @Inject constructor(
         }
     }
 
+    suspend fun fetchStanding(leagueCode: String, season: String): Flow<Result<LeaguesRaw>> {
+        return flow {
+            emit(Result.success(footballApi.fetchStanding(leagueCode, season)))
+        }.catch { exception ->
+            emit(Result.failure(exception))
+        }
+    }
+
 }
