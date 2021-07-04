@@ -34,10 +34,6 @@ class EventAdapter(private val listener: (Int) -> Unit) :
     inner class ViewHolder(private val itemBinding: ItemEventBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        init {
-
-        }
-
         fun bind(event: Event) {
             with(itemBinding) {
 
@@ -80,7 +76,7 @@ class EventAdapter(private val listener: (Int) -> Unit) :
 class LeaguesDiffCallback : DiffUtil.ItemCallback<Event>() {
 
     override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
-        return false;
+        return false
     }
 
     override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean {

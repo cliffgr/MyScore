@@ -22,7 +22,7 @@ class LeaguesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLeagueBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,9 +32,7 @@ class LeaguesFragment : Fragment() {
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = LeaguesAdapter() { id ->
-
-            }
+            adapter = LeaguesAdapter {}
         }
 
         leagueViewModel.leaguesByCountryCode("gr")

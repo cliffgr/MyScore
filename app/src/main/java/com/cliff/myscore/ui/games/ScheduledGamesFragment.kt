@@ -19,7 +19,7 @@ import java.util.*
 @AndroidEntryPoint
 class ScheduledGamesFragment : Fragment() {
     private var dateOffset: Int = 0
-    private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.getDefault())
+    private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     private var _binding: FragmentScheduledGamesBinding? = null
     private val binding get() = _binding!!
@@ -47,7 +47,7 @@ class ScheduledGamesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentScheduledGamesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -59,8 +59,8 @@ class ScheduledGamesFragment : Fragment() {
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = ScheduleGamesAdapter() { id, status ->
-                Log.e("Tap", "ID : ${id} - Status : ${status}")
+            adapter = ScheduleGamesAdapter { id, status ->
+                Log.e("Tap", "ID : $id - Status : $status")
                 when (status) {
                     "FT" -> {
                         val directions: NavDirections =
@@ -83,7 +83,7 @@ class ScheduledGamesFragment : Fragment() {
         cal.add(Calendar.DATE, dateOffset)
         val dateTobeRequested = simpleDateFormat.format(cal.time)
 
-        viewModel.getScheduledMatchesForTheDay(dateTobeRequested);
+        viewModel.getScheduledMatchesForTheDay(dateTobeRequested)
     }
 
     private fun initObservers() {

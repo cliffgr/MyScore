@@ -10,7 +10,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cliff.myscore.R
 import com.cliff.myscore.bl.setVisible
 import com.cliff.myscore.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +26,7 @@ class CountriesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,11 +34,11 @@ class CountriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dashboardViewModel.getSupportedCountries();
+        dashboardViewModel.getSupportedCountries()
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = CountriesAdapter() {
+            adapter = CountriesAdapter{
                 val directions: NavDirections =
                     CountriesFragmentDirections.actionCountriesFragmentToLeagueFragment(it)
 

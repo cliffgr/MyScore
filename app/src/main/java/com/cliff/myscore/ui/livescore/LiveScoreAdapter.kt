@@ -23,7 +23,7 @@ class LiveScoreAdapter(private val listener: (Int) -> Unit) :
         return when (viewType) {
             ITEM_VIEW_TYPE_HEADER -> HeaderHolder.from(parent)
             ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(parent)
-            else -> throw ClassCastException("Unknown viewType ${viewType}")
+            else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
 

@@ -1,7 +1,6 @@
 package com.cliff.myscore.ui.setup.countries
 
 import android.net.Uri
-import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -45,7 +44,7 @@ class CountriesAdapter(private val listener: (String) -> Unit) :
                     GlideToVectorYou
                         .init()
                         .with(countryImage.context)
-                        .load(Uri.parse(country.flag), countryImage);
+                        .load(Uri.parse(country.flag), countryImage)
                 }
                 //  checkBox.isChecked = checkBoxesPositions[layoutPosition, false]
             }

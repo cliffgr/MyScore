@@ -18,7 +18,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-   lateinit var  navView: BottomNavigationView
+   private lateinit var navView: BottomNavigationView
 
    @Inject lateinit var pref : PrefManager
 
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
 
-        //bottombar
+        //bottomBar
         navView= findViewById(R.id.bottom_navigation_view)
 
         //container

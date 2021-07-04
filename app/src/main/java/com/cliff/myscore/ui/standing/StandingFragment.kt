@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cliff.myscore.databinding.FragmentLeagueBinding
 import com.cliff.myscore.databinding.FragmentStandingBinding
 import com.cliff.myscore.ui.setup.leagues.LeagueViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +22,7 @@ class StandingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentStandingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -33,9 +32,7 @@ class StandingFragment : Fragment() {
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = LeaguesAdapter() { id ->
-
-            }
+            adapter = LeaguesAdapter {}
         }
 
         leagueViewModel.leaguesByCountryCode("gr")

@@ -6,14 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navGraphViewModels
 import com.cliff.myscore.R
-import com.cliff.myscore.databinding.FragmentEventsBinding
 import com.cliff.myscore.databinding.FragmentLineupBinding
 import com.cliff.myscore.ui.match.FixtureViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LineupViewFragment : Fragment() {
 
-    lateinit var lineupType: String
+    private lateinit var lineupType: String
 
     companion object {
 
@@ -55,7 +49,7 @@ class LineupViewFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLineupBinding.inflate(inflater, container, false)
         return binding.root
     }

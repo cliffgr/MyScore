@@ -11,7 +11,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,10 +46,5 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                     _liveScore.postValue(listOfMatches)
                 }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        //job?.cancel()
     }
 }

@@ -24,8 +24,6 @@ class HalfFieldDrawable(context: Context) : Drawable() {
         color = ResourcesCompat.getColor(context.resources, R.color.fieldLine, context.theme)
     }
 
-    private val NUM_OF_GRASS_ROWS = 8
-
     private val rect = Rect()
     private val padding = 8.px
     private val halfInnerGoalWidth = 16.px
@@ -130,6 +128,10 @@ class HalfFieldDrawable(context: Context) : Drawable() {
 
     override fun getOpacity(): Int {
         return PixelFormat.OPAQUE
+    }
+
+    companion object {
+        const val NUM_OF_GRASS_ROWS : Int = 8
     }
 
 }

@@ -21,13 +21,13 @@ class GamesFragment : Fragment() {
     private var _binding: FragmentGamesBinding? = null
     private val binding get() = _binding!!
 
-    val simpleDateFormat = SimpleDateFormat("EEE, MMM d")
+    private val simpleDateFormat = SimpleDateFormat("EEE, MMM d", Locale.getDefault())
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentGamesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -73,6 +73,6 @@ class GamesFragment : Fragment() {
             tab.text = pageTitles[position]
         }.attach()
 
-        binding.viewPager.setCurrentItem(6,false)
+        binding.viewPager.setCurrentItem(6, false)
     }
 }

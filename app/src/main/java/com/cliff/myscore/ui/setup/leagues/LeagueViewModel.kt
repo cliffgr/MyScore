@@ -1,8 +1,6 @@
 package com.cliff.myscore.ui.setup.leagues
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.cliff.myscore.bl.handleErrors
 import com.cliff.myscore.data.Repository
 import com.cliff.myscore.model.Leagues
 import dagger.hilt.android.lifecycle.HiltViewModel

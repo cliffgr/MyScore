@@ -1,6 +1,5 @@
 package com.cliff.myscore.ui.standing
 
-import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,10 +30,6 @@ class LeaguesAdapter(private val listener: (Int) -> Unit) :
 
     inner class ViewHolder(private val itemBinding: ItemLeaguesBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
-
-        init {
-
-        }
 
         fun bind(leagues: Leagues) {
             with(itemBinding) {
