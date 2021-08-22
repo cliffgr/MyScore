@@ -22,6 +22,10 @@ fun LeaguesRaw.getResponse(): List<Leagues> {
     return response
 }
 
+fun StandingRaw.getResponse(): StandingLeague {
+    return StandingLeague(this.response[0].league)
+}
+
 fun CoroutineScope.launchPeriodicAsync(
     repeatMillis: Long,
     action: () -> Unit

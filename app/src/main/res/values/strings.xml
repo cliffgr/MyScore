@@ -2,7 +2,7 @@
     <string name="app_name">MyScore</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_standing">Standing</string>
     <string name="live">Live</string>
     <string name="matches">Matches</string>
 </resources>

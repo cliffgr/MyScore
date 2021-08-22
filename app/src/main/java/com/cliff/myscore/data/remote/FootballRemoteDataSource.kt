@@ -5,6 +5,7 @@ import com.cliff.myscore.data.remote.api.FootballApi
 import com.cliff.myscore.model.CountriesRaw
 import com.cliff.myscore.model.FixturesRaw
 import com.cliff.myscore.model.LeaguesRaw
+import com.cliff.myscore.model.StandingRaw
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -55,7 +56,7 @@ class FootballRemoteDataSource @Inject constructor(
         }
     }
 
-    suspend fun fetchStanding(leagueCode: String, season: String): Flow<Result<LeaguesRaw>> {
+    suspend fun fetchStanding(leagueCode: String, season: String): Flow<Result<StandingRaw>> {
         return flow {
             emit(Result.success(footballApi.fetchStanding(leagueCode, season)))
         }.catch { exception ->

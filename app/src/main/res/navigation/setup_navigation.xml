@@ -60,13 +60,13 @@
         </fragment>
 
         <fragment
-            android:id="@+id/navigation_notifications"
-            android:name="com.cliff.myscore.ui.leagues.LeaguesFragment"
-            android:label="@string/title_notifications"
-            tools:layout="@layout/fragment_notifications" >
+            android:id="@+id/navigation_countries"
+            android:name="com.cliff.myscore.ui.countries.CountriesFragment"
+            android:label="@string/title_standing"
+            tools:layout="@layout/fragment_dashboard">
             <action
-                android:id="@+id/action_navigation_notifications_to_standingFragment"
-                app:destination="@id/standingFragment" />
+                android:id="@+id/action_navigation_countries_to_leagueFragment2"
+                app:destination="@id/leagueFragment2" />
         </fragment>
 
         <fragment
@@ -78,6 +78,7 @@
                 android:name="fixtureId"
                 app:argType="integer" />
         </fragment>
+
         <fragment
             android:id="@+id/overViewFragment"
             android:name="com.cliff.myscore.ui.match.overview.OverViewFragment"
@@ -94,9 +95,34 @@
                 app:destination="@id/fixtureFragment" />
         </fragment>
         <fragment
+            android:id="@+id/leagueFragment2"
+            android:name="com.cliff.myscore.ui.leagues.LeaguesFragment"
+            android:label="fragment_league"
+            tools:layout="@layout/fragment_league">
+
+            <argument
+                android:name="countryCode"
+                app:argType="string" />
+
+            <action
+                android:id="@+id/action_leaguesFragment2_to_standingFragment"
+                app:destination="@id/standingFragment" >
+                <argument
+                    android:name="leagueCode" />
+            </action>
+
+        </fragment>
+
+        <fragment
             android:id="@+id/standingFragment"
             android:name="com.cliff.myscore.ui.standing.StandingFragment"
-            android:label="StandingFragment" />
+            android:label="StandingFragment"
+            tools:layout="@layout/fragment_standing">
+
+            <argument
+                android:name="leagueCode"
+                app:argType="string" />
+        </fragment>
 
     </navigation>
 

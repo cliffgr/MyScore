@@ -10,8 +10,9 @@ import com.bumptech.glide.Glide
 import com.cliff.myscore.databinding.ItemLeaguesBinding
 import com.cliff.myscore.model.Leagues
 
-class LeaguesAdapter(private val listener: (Int) -> Unit) :
-    ListAdapter<Leagues, LeaguesAdapter.ViewHolder>(LeaguesDiffCallback()) {
+
+class StandingAdapter(private val listener: (Int) -> Unit) :
+    ListAdapter<Leagues, StandingAdapter.ViewHolder>(LeaguesDiffCallback()) {
 
     //var checkBoxesPositions: SparseBooleanArray = SparseBooleanArray()
 
@@ -31,7 +32,16 @@ class LeaguesAdapter(private val listener: (Int) -> Unit) :
     inner class ViewHolder(private val itemBinding: ItemLeaguesBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
+        private lateinit var leagues: Leagues
+
+        init {
+            itemView.setOnClickListener {
+                listener(leagues.league.id)
+            }
+        }
+
         fun bind(leagues: Leagues) {
+            this.leagues = leagues
             with(itemBinding) {
                 leagueName.text = leagues.league.name
                 leagues.league.logo.let {
@@ -43,9 +53,6 @@ class LeaguesAdapter(private val listener: (Int) -> Unit) :
 
                 checkBox.visibility = View.INVISIBLE
 
-                root.setOnClickListener {
-                    listener(leagues.league.id)
-                }
 
             }
         }

@@ -1,14 +1,14 @@
 package com.cliff.myscore.ui.standing
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cliff.myscore.data.Repository
-import com.cliff.myscore.model.Leagues
+import com.cliff.myscore.model.StandingLeague
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,22 +16,18 @@ import javax.inject.Inject
 @HiltViewModel
 class StandingViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    var leagues: MutableLiveData<List<Leagues>> = MutableLiveData()
+    var standing: MutableLiveData<StandingLeague> = MutableLiveData()
 
-
-    fun leaguesByCountryCode(countryCode: String) {
+    fun standingByLeague(leagueCode: String, season: String) {
         viewModelScope.launch(Dispatchers.Default) {
-            repository.getLeagues(countryCode)
-                .onEach {
-                    val listLeagues: List<Leagues> = it.getOrDefault(listOf())
-                    for (leagues in listLeagues) {
-                        val response = repository.checkLeagueIfSelected(leagues.league.id)
-                        if (response.isNotEmpty())
-                            leagues.league.isSelected = response[0].flag
-                    }
-                }.collect {
-                    leagues.postValue(it.getOrNull())
-                }
+            repository.getStanding(leagueCode, season).collect {
+
+                val stL: StandingLeague = it.getOrThrow()
+                if (stL.leagueStanding.standings.size > 1)
+                    Log.e("Standing","More than one Leagues")
+
+                    standing.postValue(it.getOrNull())
+            }
         }
     }
 }

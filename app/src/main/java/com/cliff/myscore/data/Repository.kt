@@ -62,7 +62,7 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getStanding(leagueCode: String, season: String): Flow<Result<List<Leagues>>> {
+    suspend fun getStanding(leagueCode: String, season: String): Flow<Result<StandingLeague>>{
         return remoteDataSource.fetchStanding(leagueCode, season).map {
             if (it.isSuccess)
                 Result.success(it.getOrNull()!!.getResponse())

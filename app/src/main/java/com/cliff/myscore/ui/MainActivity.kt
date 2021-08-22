@@ -18,27 +18,30 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-   private lateinit var navView: BottomNavigationView
+    private lateinit var navView: BottomNavigationView
 
-   @Inject lateinit var pref : PrefManager
+    @Inject
+    lateinit var pref: PrefManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
 
         //bottomBar
-        navView= findViewById(R.id.bottom_navigation_view)
+        navView = findViewById(R.id.bottom_navigation_view)
 
         //container
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.setup_navigation)
 
-        if(pref.intFirstRunPref)
-            graph.startDestination = R.id.countriesFragment
-        else
-            graph.startDestination=R.id.mobile_navigation
+
+        when (pref.intFirstRunPref) {
+            true -> graph.startDestination = R.id.countriesFragment
+            false -> graph.startDestination = R.id.mobile_navigation
+        }
 
         navHostFragment.navController.graph = graph
 
@@ -47,20 +50,17 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_matches, R.id.navigation_notifications
+                R.id.navigation_home, R.id.navigation_matches, R.id.navigation_countries
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.navigation_home, R.id.navigation_matches, R.id.navigation_notifications -> showBottomNavigation()
+                R.id.navigation_home, R.id.navigation_matches, R.id.navigation_countries -> showBottomNavigation()
                 else -> hideBottomNavigation()
             }
         }
-
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

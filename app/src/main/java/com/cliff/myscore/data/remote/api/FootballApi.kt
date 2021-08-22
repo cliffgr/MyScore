@@ -3,6 +3,7 @@ package com.cliff.myscore.data.remote.api
 import com.cliff.myscore.model.CountriesRaw
 import com.cliff.myscore.model.FixturesRaw
 import com.cliff.myscore.model.LeaguesRaw
+import com.cliff.myscore.model.StandingRaw
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -30,6 +31,6 @@ interface FootballApi {
     suspend fun fetchStanding(
         @Query("league") leagueCode: String,
         @Query("season") season: String
-    ): LeaguesRaw
+    ): StandingRaw
 
 }

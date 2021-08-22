@@ -1,4 +1,4 @@
-package com.cliff.myscore.ui.setup.countries
+package com.cliff.myscore.ui.countries
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cliff.myscore.bl.setVisible
 import com.cliff.myscore.databinding.FragmentDashboardBinding
@@ -36,19 +36,15 @@ class CountriesFragment : Fragment() {
 
         dashboardViewModel.getSupportedCountries()
 
+        binding.button.visibility=View.GONE
+
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
             adapter = CountriesAdapter {
                 val directions: NavDirections =
-                    CountriesFragmentDirections.actionCountriesFragmentToLeagueFragment(it)
+                    CountriesFragmentDirections.actionNavigationCountriesToLeagueFragment2(it)
                 findNavController().navigate(directions)
             }
-        }
-
-        binding.button.setOnClickListener {
-            val directions: NavDirections =
-                CountriesFragmentDirections.actionCountriesFragmentToMobileNavigation()
-            findNavController().navigate(directions)
         }
 
         dashboardViewModel.countries.observe(viewLifecycleOwner, {

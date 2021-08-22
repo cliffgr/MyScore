@@ -1,4 +1,4 @@
-package com.cliff.myscore.ui.setup.countries
+package com.cliff.myscore.ui.countries
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class CountriesViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     val countries: MutableLiveData<List<Country>> = MutableLiveData()
 
