@@ -19,6 +19,10 @@ class CountriesViewModel @Inject constructor(private val repository: Repository)
 
     val countries: MutableLiveData<List<Country>> = MutableLiveData()
 
+    private val _filteredCountries: MutableLiveData<List<Country>> = MutableLiveData()
+    val filteredCountries: LiveData<List<Country>>
+        get() = _filteredCountries
+
     private val _loader = MutableLiveData<Boolean>()
     val loader: LiveData<Boolean>
         get() = _loader
@@ -29,6 +33,7 @@ class CountriesViewModel @Inject constructor(private val repository: Repository)
             repository.getCountries()
                 .onEach {
                     countries.postValue(it.getOrNull()!!)
+                    _filteredCountries.postValue(it.getOrNull()!!)
                     _loader.postValue(false)
                 }
                 .handleErrors {
@@ -36,5 +41,14 @@ class CountriesViewModel @Inject constructor(private val repository: Repository)
                 }
                 .collect()
         }
+    }
+
+    fun filteringCountries(query: String?) {
+        query?.let {
+            _filteredCountries.postValue(countries.value?.filter {
+                it.name.contains(query, true)
+            })
+        }
+
     }
 }

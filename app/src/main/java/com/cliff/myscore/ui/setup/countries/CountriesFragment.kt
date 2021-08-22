@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
@@ -11,14 +12,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cliff.myscore.bl.setVisible
-import com.cliff.myscore.databinding.FragmentDashboardBinding
+import com.cliff.myscore.databinding.FragmentCountriesBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CountriesFragment : Fragment() {
 
-    private val dashboardViewModel: CountriesViewModel by viewModels()
-    private var _binding: FragmentDashboardBinding? = null
+    private val countriesViewModel: CountriesViewModel by viewModels()
+    private var _binding: FragmentCountriesBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -26,7 +27,7 @@ class CountriesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentCountriesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -34,7 +35,7 @@ class CountriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        dashboardViewModel.getSupportedCountries()
+        countriesViewModel.getSupportedCountries()
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
@@ -51,11 +52,23 @@ class CountriesFragment : Fragment() {
             findNavController().navigate(directions)
         }
 
-        dashboardViewModel.countries.observe(viewLifecycleOwner, {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                countriesViewModel.filteringCountries(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                countriesViewModel.filteringCountries(newText)
+                return true
+            }
+        })
+
+        countriesViewModel.filteredCountries.observe(viewLifecycleOwner, {
             (binding.recyclerView.adapter as CountriesAdapter).submitList(it)
         })
 
-        dashboardViewModel.loader.observe(viewLifecycleOwner, { flag ->
+        countriesViewModel.loader.observe(viewLifecycleOwner, { flag ->
             binding.progressBar.setVisible(flag)
         })
     }

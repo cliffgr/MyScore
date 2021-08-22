@@ -7,7 +7,7 @@
         android:id="@+id/countriesFragment"
         android:name="com.cliff.myscore.ui.setup.countries.CountriesFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard">
+        tools:layout="@layout/fragment_countries">
         <action
             android:id="@+id/action_countriesFragment_to_leagueFragment"
             app:destination="@id/leagueFragment"
@@ -63,7 +63,7 @@
             android:id="@+id/navigation_countries"
             android:name="com.cliff.myscore.ui.countries.CountriesFragment"
             android:label="@string/title_standing"
-            tools:layout="@layout/fragment_dashboard">
+            tools:layout="@layout/fragment_countries">
             <action
                 android:id="@+id/action_navigation_countries_to_leagueFragment2"
                 app:destination="@id/leagueFragment2" />
