@@ -70,6 +70,17 @@ android {
         exclude 'META-INF/AL2.0'
         exclude 'META-INF/LGPL2.1'
     }
+    flavorDimensions 'MyApp'
+    productFlavors {
+        Live {
+            dimension 'MyApp'
+            buildConfigField "String", "BASE_URL", '""https://v3.football.api-sports.io/""'
+        }
+        Local {
+            dimension 'MyApp'
+            buildConfigField "String", "BASE_URL", '"https://192.168.1.20:3001/"'
+        }
+    }
 }
 
 dependencies {

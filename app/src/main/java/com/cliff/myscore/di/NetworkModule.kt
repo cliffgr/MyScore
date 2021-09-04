@@ -55,12 +55,24 @@ class NetworkModule {
         httpLoggingInterceptor: HttpLoggingInterceptor,
         providesOkhttpInterceptor: Interceptor
     ): OkHttpClient {
-        return OkHttpClient().newBuilder()
+
+        val okhttpBuilder: OkHttpClient.Builder = when (BuildConfig.FLAVOR) {
+            "Local" -> {
+                UnsafeOkHttpClient.unsafeOkHttpClient.newBuilder()
+            }
+            else -> {
+                OkHttpClient().newBuilder()
+            }
+        }
+
+        return okhttpBuilder
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor(providesOkhttpInterceptor)
             .build()
+
+
     }
 
 
@@ -71,9 +83,12 @@ class NetworkModule {
 
 
     @Provides
-    fun provideBaseRetrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Retrofit {
+    fun provideBaseRetrofit(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
